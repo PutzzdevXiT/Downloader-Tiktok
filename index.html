@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Downloader Cyber</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Russo+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Kanit',sans-serif}
+body{
+  background:#02040f;
+  color:#dff6ff;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ===== AURORA ===== */
+body::before{
+  content:"";
+  position:fixed;
+  inset:-40%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(56,189,248,.35), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(167,139,250,.35), transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(74,222,128,.25), transparent 60%);
+  filter:blur(120px);
+  animation:aurora 12s infinite alternate;
+  z-index:-3;
+}
+@keyframes aurora{
+  from{transform:translate(-6%,-6%)}
+  to{transform:translate(6%,6%)}
+}
+
+/* ===== CYBER GRID ===== */
+.cyber-grid{
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,255,255,.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180,100,255,.12) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 20s linear infinite;
+  z-index:-2;
+}
+@keyframes gridMove{
+  to{background-position:120px 120px}
+}
+
+/* ===== PARTICLES ===== */
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ===== SPLASH ===== */
+#splash{
+  position:fixed;
+  inset:0;
+  background:#01020b;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  transition:.6s;
+}
+.splash-text{
+  font-family:'Russo One',sans-serif;
+  font-size:48px;
+  color:#7dd7ff;
+  text-shadow:0 0 25px #00c8ff;
+  animation:pulse 1.5s infinite alternate;
+}
+@keyframes pulse{to{opacity:.6}}
+
+/* ===== MAIN ===== */
+#mainApp{
+  opacity:0;
+  pointer-events:none;
+  transition:.5s;
+  padding:80px 15px 40px;
+}
+#mainApp.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.container{
+  max-width:420px;
+  margin:auto;
+  padding:30px;
+  border-radius:24px;
+  background:rgba(0,30,60,.35);
+  backdrop-filter:blur(20px);
+  border:1px solid #00c8ff55;
+  box-shadow:0 0 30px #00c8ff55;
+}
+
+h1{
+  text-align:center;
+  margin-bottom:20px;
+  color:#7dd7ff;
+  text-shadow:0 0 20px #00c8ff;
+}
+
+input{
+  width:100%;
+  padding:14px 18px;
+  border-radius:14px;
+  border:1px solid #00c8ff55;
+  background:rgba(0,20,40,.6);
+  color:#dff6ff;
+  outline:none;
+}
+
+button{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#007bff,#00eaff);
+  color:white;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 0 20px #00c8ff;
+}
+
+.loading{
+  display:none;
+  text-align:center;
+  margin-top:15px;
+}
+
+/* ===== POPUP ===== */
+#popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+#popup > div{
+  background:rgba(0,25,50,.9);
+  padding:25px;
+  border-radius:20px;
+  width:90%;
+  max-width:360px;
+  text-align:center;
+  box-shadow:0 0 30px #00c8ff;
+}
+#popup img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:10px;
+}
+.option{
+  display:block;
+  margin:10px 0;
+  padding:12px;
+  border-radius:12px;
+  background:#00b8ff55;
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* ===== MENU ===== */
+.cyber-menu{
+  position:fixed;
+  top:15px;
+  left:15px;
+  z-index:99999;
+}
+.menu-btn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:rgba(0,180,255,.3);
+  color:#7dd7ff;
+  font-size:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  box-shadow:0 0 15px #00c8ff;
+}
+.menu-box{
+  margin-top:10px;
+  display:none;
+  background:rgba(0,25,50,.9);
+  border-radius:14px;
+  padding:10px;
+}
+.menu-box.show{display:block}
+.menu-item{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px;
+  color:white;
+  text-decoration:none;
+}
+.menu-item img{width:28px;height:28px}
+</style>
+</head>
+
+<body>
+
+<div class="cyber-grid"></div>
+<canvas id="particles"></canvas>
+
+<!-- MENU -->
+<div class="cyber-menu">
+  <div class="menu-btn" onclick="toggleMenu()">⋮</div>
+  <div id="menuBox" class="menu-box">
+    <a class="menu-item" href="https://wa.me/6288976255131" target="_blank">
+      <img src="https://files.catbox.moe/zaulw6.webp"> WhatsApp
+    </a>
+    <a class="menu-item" href="https://www.tiktok.com/@Putzzdev" target="_blank">
+      <img src="https://files.catbox.moe/zaulw6.webp"> TikTok
+    </a>
+  </div>
+</div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-text">PUTZZ DEV</div>
+</div>
+
+<!-- MAIN -->
+<div id="mainApp">
+  <div class="container">
+    <h1>TikTok Downloader</h1>
+    <input id="url" placeholder="Tempel URL TikTok">
+    <button onclick="dl()">Download</button>
+    <div class="loading" id="loading">Mengambil data...</div>
+  </div>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+  <div>
+    <img id="thumb">
+    <p id="title"></p>
+    <a id="hd" class="option" target="_blank">Download HD</a>
+    <a id="sd" class="option" target="_blank">Download SD</a>
+    <a id="mp3" class="option" target="_blank">Download MP3</a>
+    <button onclick="popup.style.display='none'">Tutup</button>
+  </div>
+</div>
+
+<script>
+/* SPLASH */
+setTimeout(()=>{
+  splash.style.opacity=0;
+  setTimeout(()=>{
+    splash.remove();
+    mainApp.classList.add("show");
+  },600);
+},2000);
+
+/* MENU */
+function toggleMenu(){
+  menuBox.classList.toggle("show");
+}
+
+/* PARTICLES */
+const c=document.getElementById("particles"),x=c.getContext("2d");
+let w,h,p=[];
+function rs(){w=c.width=innerWidth;h=c.height=innerHeight}
+addEventListener("resize",rs);rs();
+for(let i=0;i<60;i++)p.push({x:Math.random()*w,y:Math.random()*h,s:Math.random()+.2});
+(function d(){
+  x.clearRect(0,0,w,h);
+  p.forEach(o=>{
+    x.fillStyle="#00eaff";
+    x.shadowBlur=15;
+    x.beginPath();
+    x.arc(o.x,o.y,1.5,0,7);
+    x.fill();
+    o.y-=o.s;
+    if(o.y<0)o.y=h;
+  });
+  requestAnimationFrame(d);
+})();
+
+/* DOWNLOAD */
+async function dl(){
+  if(!url.value) return alert("Masukkan link!");
+  loading.style.display="block";
+  try{
+    const r=await fetch(`https://api.nvidiabotz.xyz/download/tiktok?url=${encodeURIComponent(url.value)}`);
+    const j=await r.json();
+    if(!j.status) throw "Gagal";
+    thumb.src=j.result.thumbnail;
+    title.textContent=j.result.title;
+    hd.href=j.result.video_hd;
+    sd.href=j.result.video_sd;
+    mp3.href=j.result.mp3;
+    popup.style.display="flex";
+  }catch(e){alert("Error API")}
+  loading.style.display="none";
+}
+</script>
+
+</body>
+</html>
