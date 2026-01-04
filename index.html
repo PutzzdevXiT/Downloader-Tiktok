@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lovable Style TikTok Downloader</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="aurora"></div>
+<div class="grid"></div>
+<canvas id="particles"></canvas>
+
+<!-- APP -->
+<div class="app">
+  <h1>Lovable Downloader</h1>
+  <p class="subtitle">Cyber • Glass • Neon</p>
+
+  <input id="url" placeholder="Tempel link TikTok..." />
+  <button onclick="download()">Download</button>
+
+  <div id="loading">Mengambil data...</div>
+</div>
+
+<!-- POPUP -->
+<div id="popup">
+  <div class="card">
+    <img id="thumb">
+    <p id="title"></p>
+    <a id="hd" target="_blank">Download HD</a>
+    <a id="sd" target="_blank">Download SD</a>
+    <a id="mp3" target="_blank">Download MP3</a>
+    <button onclick="popup.style.display='none'">Tutup</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

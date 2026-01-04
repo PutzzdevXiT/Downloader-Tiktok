@@ -1,0 +1,130 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,Segoe UI,Arial;
+}
+
+body{
+  background:#050814;
+  color:#e5f9ff;
+  min-height:100vh;
+  overflow:hidden;
+}
+
+/* AURORA */
+.aurora{
+  position:fixed;
+  inset:-40%;
+  background:
+    radial-gradient(circle at 30% 30%, #38bdf855, transparent 60%),
+    radial-gradient(circle at 70% 70%, #a78bfa55, transparent 60%),
+    radial-gradient(circle at 50% 50%, #4ade8055, transparent 60%);
+  filter:blur(140px);
+  animation:move 14s infinite alternate;
+  z-index:-3;
+}
+@keyframes move{
+  to{transform:translate(6%,6%)}
+}
+
+/* GRID */
+.grid{
+  position:fixed;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,255,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160,100,255,.08) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:grid 25s linear infinite;
+  z-index:-2;
+}
+@keyframes grid{
+  to{background-position:120px 120px}
+}
+
+/* APP */
+.app{
+  max-width:420px;
+  margin:100px auto;
+  padding:30px;
+  background:rgba(10,30,60,.35);
+  backdrop-filter:blur(18px);
+  border-radius:24px;
+  border:1px solid #00eaff55;
+  box-shadow:0 0 40px #00eaff55;
+  text-align:center;
+}
+
+h1{
+  color:#7dd7ff;
+  text-shadow:0 0 20px #00eaff;
+}
+
+.subtitle{
+  opacity:.8;
+  margin-bottom:20px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(0,20,40,.6);
+  border:1px solid #00eaff55;
+  color:white;
+  outline:none;
+}
+
+button{
+  margin-top:15px;
+  width:100%;
+  padding:14px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#007bff,#00eaff);
+  color:white;
+  font-weight:600;
+  box-shadow:0 0 20px #00eaff;
+}
+
+#loading{
+  display:none;
+  margin-top:15px;
+}
+
+/* POPUP */
+#popup{
+  position:fixed;
+  inset:0;
+  display:none;
+  background:rgba(0,0,0,.8);
+  align-items:center;
+  justify-content:center;
+}
+
+.card{
+  width:90%;
+  max-width:360px;
+  background:rgba(0,25,50,.9);
+  padding:20px;
+  border-radius:20px;
+  box-shadow:0 0 30px #00eaff;
+  text-align:center;
+}
+
+.card img{
+  width:100%;
+  border-radius:14px;
+  margin-bottom:10px;
+}
+
+.card a{
+  display:block;
+  margin:8px 0;
+  padding:12px;
+  background:#00b8ff55;
+  border-radius:12px;
+  color:white;
+  text-decoration:none;
+}
