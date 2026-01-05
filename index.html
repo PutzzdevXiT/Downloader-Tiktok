@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TikTok Downloader & Search</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Russo+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="cyber-grid"></div>
+
+<!-- MENU -->
+<div class="menu">
+  <div class="menu-btn" onclick="toggleMenu()">⋮</div>
+  <div id="menuBox" class="menu-box">
+    <div class="dev">Putzzdev</div>
+    <a href="https://www.tiktok.com/@putzzdev" target="_blank">TikTok</a>
+    <a href="https://wa.me/6288976255131" target="_blank">WhatsApp</a>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="app">
+  <h1>TikTok Downloader</h1>
+
+  <input id="input" placeholder="URL / @username / kata kunci">
+  <button onclick="process()">GO</button>
+
+  <div id="loading" class="loading">Loading...</div>
+
+  <div id="feed"></div>
+</div>
+
+<!-- POPUP DOWNLOAD -->
+<div id="popup">
+  <div class="popup-box">
+    <img id="thumb">
+    <p id="title"></p>
+    <a id="hd" target="_blank">Download HD</a>
+    <a id="sd" target="_blank">Download SD</a>
+    <a id="mp3" target="_blank">Download MP3</a>
+    <button onclick="popup.style.display='none'">Tutup</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
