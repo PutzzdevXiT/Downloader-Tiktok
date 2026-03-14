@@ -6,7 +6,7 @@
 
 <title>KEY GENERATOR | Putzzdev-HUB</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
@@ -22,88 +22,115 @@ color:#0ff;
 overflow:hidden;
 }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
 /* CARD */
 
 .box{
-width:370px;
-padding:35px;
-border-radius:20px;
+width:350px;
+padding:30px;
+border-radius:18px;
 background:rgba(10,20,40,.92);
 border:1px solid #00ffff55;
 box-shadow:0 0 25px #00ffff55,inset 0 0 20px #00ffff33;
 text-align:center;
-animation:float 4s ease-in-out infinite;
-}
-
-@keyframes float{
-50%{transform:translateY(-10px)}
 }
 
 h1{
 font-size:20px;
-margin-bottom:20px;
-letter-spacing:2px;
+margin-bottom:18px;
 color:#00ffff;
 text-shadow:0 0 12px #00ffff;
 }
 
-button{
+/* DROPDOWN */
+
+select{
+
 width:100%;
 padding:14px;
-margin-top:12px;
+margin-top:10px;
+
+border-radius:12px;
+border:none;
+
+background:#061a35;
+color:#0ff;
+
+font-size:15px;
+
+}
+
+/* BUTTON */
+
+button{
+
+width:100%;
+padding:14px;
+margin-top:14px;
+
 border:none;
 border-radius:12px;
-cursor:pointer;
-font-weight:bold;
+
 background:linear-gradient(135deg,#00ffff,#0099ff);
 color:#000;
+
+font-weight:bold;
+cursor:pointer;
+
 transition:.3s;
+
 }
 
 button:hover{
+
 transform:scale(1.05);
 box-shadow:0 0 20px #00ffff;
-}
 
-input{
-width:100%;
-padding:13px;
-margin-top:15px;
-border-radius:10px;
-border:none;
-background:#000;
-color:#0ff;
-text-align:center;
-font-weight:bold;
-box-shadow:inset 0 0 10px #00ffff55;
 }
 
 .copy{
 background:linear-gradient(135deg,#00ffaa,#00ffff);
 }
 
+/* INPUT */
+
+input{
+
+width:100%;
+padding:13px;
+margin-top:15px;
+
+border-radius:10px;
+border:none;
+
+background:#000;
+color:#0ff;
+
+text-align:center;
+font-weight:bold;
+
+box-shadow:inset 0 0 10px #00ffff55;
+
+}
+
 </style>
 </head>
 <body>
-
-<canvas id="particles"></canvas>
 
 <div class="box">
 
 <h1>🔑 KEY GENERATOR<br>Putzzdev-HUB</h1>
 
-<button onclick="ambilKey(0)">KEY 1 (1 DAY)</button>
-<button onclick="ambilKey(1)">KEY 2 (1 DAY)</button>
-<button onclick="ambilKey(2)">KEY 3 (1 DAY)</button>
+<select id="daySelect">
+<option value="1">1 DAY</option>
+<option value="2">2 DAY</option>
+<option value="3">3 DAY</option>
+<option value="7">7 DAY</option>
+<option value="30">30 DAY</option>
+</select>
 
-<input id="hasilKey" placeholder="KEY AKAN MUNCUL DISINI" readonly>
+<button onclick="ambilKey()">AMBIL KEY</button>
+
+<input id="hasilKey" placeholder="KEY AKAN MUNCUL" readonly>
 
 <button class="copy" onclick="copyKey()">COPY KEY</button>
 
@@ -113,10 +140,9 @@ background:linear-gradient(135deg,#00ffaa,#00ffff);
 
 const KEY_URL="https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/main/key.json";
 
-/* AMBIL KEY DARI RAW */
+async function ambilKey(){
 
-async function ambilKey(index){
-
+const day=document.getElementById("daySelect").value;
 const output=document.getElementById("hasilKey");
 
 output.value="Mengambil key...";
@@ -126,7 +152,16 @@ try{
 const res=await fetch(KEY_URL);
 const data=await res.json();
 
-output.value=data.duration_keys[index].key;
+const item=data.duration_keys.find(k=>k.days==day);
+
+if(!item){
+
+output.value="Key tidak tersedia";
+return;
+
+}
+
+output.value=item.key;
 
 }catch{
 
@@ -135,8 +170,6 @@ output.value="Gagal mengambil key";
 }
 
 }
-
-/* COPY */
 
 function copyKey(){
 
@@ -150,55 +183,6 @@ document.execCommand("copy");
 alert("Key berhasil disalin");
 
 }
-
-/* PARTICLES */
-
-const c=document.getElementById("particles");
-const ctx=c.getContext("2d");
-
-let w,h,p=[];
-
-function resize(){
-w=c.width=innerWidth;
-h=c.height=innerHeight;
-}
-
-window.onresize=resize;
-resize();
-
-for(let i=0;i<70;i++){
-
-p.push({
-x:Math.random()*w,
-y:Math.random()*h,
-vx:(Math.random()-.5)*.5,
-vy:(Math.random()-.5)*.5
-});
-
-}
-
-function anim(){
-
-ctx.clearRect(0,0,w,h);
-
-p.forEach(o=>{
-
-o.x+=o.vx;
-o.y+=o.vy;
-
-if(o.x<0||o.x>w)o.vx*=-1;
-if(o.y<0||o.y>h)o.vy*=-1;
-
-ctx.fillStyle="#00ffff";
-ctx.fillRect(o.x,o.y,2,2);
-
-});
-
-requestAnimationFrame(anim);
-
-}
-
-anim();
 
 </script>
 
