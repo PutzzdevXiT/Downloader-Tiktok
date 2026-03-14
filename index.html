@@ -10,12 +10,7 @@
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Orbitron',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron'}
 
 body{
 height:100vh;
@@ -27,35 +22,23 @@ color:#0ff;
 overflow:hidden;
 }
 
-/* animated background */
-
-body::before{
-content:'';
-position:absolute;
-width:200%;
-height:200%;
-background:radial-gradient(circle,#00ffff33 0%,transparent 60%);
-animation:movebg 8s linear infinite;
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
-@keyframes movebg{
-0%{transform:translate(-25%,-25%)}
-100%{transform:translate(25%,25%)}
-}
-
-/* card */
+/* CARD */
 
 .box{
-width:360px;
+width:370px;
 padding:35px;
 border-radius:20px;
-background:rgba(10,20,40,0.95);
+background:rgba(10,20,40,.92);
 border:1px solid #00ffff55;
-box-shadow:
-0 0 20px #00ffff55,
-inset 0 0 20px #00ffff22;
+box-shadow:0 0 25px #00ffff55,inset 0 0 20px #00ffff33;
 text-align:center;
-backdrop-filter:blur(10px);
 animation:float 4s ease-in-out infinite;
 }
 
@@ -68,15 +51,13 @@ font-size:20px;
 margin-bottom:20px;
 letter-spacing:2px;
 color:#00ffff;
-text-shadow:0 0 10px #00ffff;
+text-shadow:0 0 12px #00ffff;
 }
-
-/* button */
 
 button{
 width:100%;
 padding:14px;
-margin-top:15px;
+margin-top:12px;
 border:none;
 border-radius:12px;
 cursor:pointer;
@@ -90,8 +71,6 @@ button:hover{
 transform:scale(1.05);
 box-shadow:0 0 20px #00ffff;
 }
-
-/* input */
 
 input{
 width:100%;
@@ -110,15 +89,6 @@ box-shadow:inset 0 0 10px #00ffff55;
 background:linear-gradient(135deg,#00ffaa,#00ffff);
 }
 
-/* particles */
-
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
 </style>
 </head>
 <body>
@@ -129,7 +99,9 @@ z-index:-1;
 
 <h1>🔑 KEY GENERATOR<br>Putzzdev-HUB</h1>
 
-<button onclick="ambilKey()">GENERATE KEY 1 DAY</button>
+<button onclick="ambilKey(0)">KEY 1 (1 DAY)</button>
+<button onclick="ambilKey(1)">KEY 2 (1 DAY)</button>
+<button onclick="ambilKey(2)">KEY 3 (1 DAY)</button>
 
 <input id="hasilKey" placeholder="KEY AKAN MUNCUL DISINI" readonly>
 
@@ -139,30 +111,38 @@ z-index:-1;
 
 <script>
 
-const KEY_URL = "https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/main/key.json";
+const KEY_URL="https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/main/key.json";
 
-async function ambilKey(){
+/* AMBIL KEY DARI RAW */
+
+async function ambilKey(index){
+
+const output=document.getElementById("hasilKey");
+
+output.value="Mengambil key...";
 
 try{
 
-const res = await fetch(KEY_URL);
-const data = await res.json();
+const res=await fetch(KEY_URL);
+const data=await res.json();
 
-document.getElementById("hasilKey").value = data.duration_keys[0].key;
+output.value=data.duration_keys[index].key;
 
 }catch{
 
-alert("Gagal mengambil key");
+output.value="Gagal mengambil key";
 
 }
 
 }
+
+/* COPY */
 
 function copyKey(){
 
-const input = document.getElementById("hasilKey");
+const input=document.getElementById("hasilKey");
 
-if(!input.value) return;
+if(!input.value)return;
 
 input.select();
 document.execCommand("copy");
@@ -176,51 +156,49 @@ alert("Key berhasil disalin");
 const c=document.getElementById("particles");
 const ctx=c.getContext("2d");
 
-let w,h,particles=[];
+let w,h,p=[];
 
 function resize(){
-w=c.width=window.innerWidth;
-h=c.height=window.innerHeight;
+w=c.width=innerWidth;
+h=c.height=innerHeight;
 }
 
 window.onresize=resize;
 resize();
 
-for(let i=0;i<80;i++){
+for(let i=0;i<70;i++){
 
-particles.push({
-
+p.push({
 x:Math.random()*w,
 y:Math.random()*h,
-vx:(Math.random()-.5)*0.6,
-vy:(Math.random()-.5)*0.6
-
+vx:(Math.random()-.5)*.5,
+vy:(Math.random()-.5)*.5
 });
 
 }
 
-function animate(){
+function anim(){
 
 ctx.clearRect(0,0,w,h);
 
-particles.forEach(p=>{
+p.forEach(o=>{
 
-p.x+=p.vx;
-p.y+=p.vy;
+o.x+=o.vx;
+o.y+=o.vy;
 
-if(p.x<0||p.x>w)p.vx*=-1;
-if(p.y<0||p.y>h)p.vy*=-1;
+if(o.x<0||o.x>w)o.vx*=-1;
+if(o.y<0||o.y>h)o.vy*=-1;
 
 ctx.fillStyle="#00ffff";
-ctx.fillRect(p.x,p.y,2,2);
+ctx.fillRect(o.x,o.y,2,2);
 
 });
 
-requestAnimationFrame(animate);
+requestAnimationFrame(anim);
 
 }
 
-animate();
+anim();
 
 </script>
 
