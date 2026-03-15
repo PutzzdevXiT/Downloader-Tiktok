@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PUTZZDEV • KEY GENERATOR</title>
+  <title>Putzz-HUB • KEY GENERATOR PRO</title>
   
   <!-- FONTS & ICONS -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -72,8 +72,8 @@
     .generator-card {
       position: relative;
       z-index: 10;
-      width: 450px;
-      background: rgba(10, 10, 20, 0.8);
+      width: 500px;
+      background: rgba(10, 10, 20, 0.9);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 255, 255, 0.3);
       border-radius: 30px;
@@ -81,7 +81,6 @@
       box-shadow: 
         0 0 50px rgba(0, 255, 255, 0.2),
         inset 0 0 30px rgba(0, 255, 255, 0.1);
-      transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
     }
@@ -124,7 +123,7 @@
     }
 
     h1 {
-      font-size: 24px;
+      font-size: 28px;
       font-weight: 700;
       background: linear-gradient(135deg, #fff, #00ffff);
       -webkit-background-clip: text;
@@ -138,6 +137,161 @@
       color: rgba(255, 255, 255, 0.6);
       font-size: 14px;
       letter-spacing: 1px;
+    }
+
+    /* PASSWORD MODAL - FIXED */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 380px;
+      background: rgba(10, 10, 20, 0.98);
+      border: 2px solid #00ffff;
+      border-radius: 25px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 0 60px #00ffff,
+                  inset 0 0 30px rgba(0, 255, 255, 0.3);
+      animation: modalPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+      pointer-events: auto;
+    }
+
+    .modal-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(0, 255, 255, 0.1),
+        transparent
+      );
+      animation: modalShine 3s linear infinite;
+    }
+
+    @keyframes modalShine {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes modalPop {
+      0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    .modal-box i {
+      font-size: 50px;
+      color: #00ffff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 20px #00ffff;
+    }
+
+    .modal-box h3 {
+      color: #fff;
+      font-size: 22px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .modal-box .key-type {
+      color: #00ffff;
+      font-size: 16px;
+      margin-bottom: 25px;
+      padding: 8px 15px;
+      background: rgba(0, 255, 255, 0.1);
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .modal-box input {
+      width: 100%;
+      padding: 15px;
+      background: #000;
+      border: 2px solid #00ffff;
+      border-radius: 15px;
+      color: #00ffff;
+      font-size: 18px;
+      margin-bottom: 25px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 2px;
+      pointer-events: auto;
+      z-index: 10000;
+    }
+
+    .modal-box input:focus {
+      outline: none;
+      box-shadow: 0 0 30px #00ffff;
+    }
+
+    .modal-box .btn-group {
+      display: flex;
+      gap: 10px;
+      position: relative;
+      z-index: 10000;
+    }
+
+    .modal-box button {
+      flex: 1;
+      padding: 12px;
+      background: linear-gradient(45deg, #00ffff, #ff00ff);
+      border: none;
+      border-radius: 12px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      pointer-events: auto;
+      position: relative;
+      z-index: 10001;
+    }
+
+    .modal-box button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.4);
+    }
+
+    .modal-box button.cancel {
+      background: transparent;
+      border: 2px solid #ff4444;
+      color: #ff4444;
+    }
+
+    .modal-box button.cancel:hover {
+      background: #ff4444;
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(255, 68, 68, 0.4);
+    }
+
+    #passwordMsg {
+      margin-top: 15px;
+      color: #ff4444;
+      font-size: 14px;
+      min-height: 20px;
     }
 
     /* DROPDOWN STYLE */
@@ -160,7 +314,7 @@
     select {
       width: 100%;
       padding: 15px 20px 15px 50px;
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.7);
       border: 2px solid rgba(0, 255, 255, 0.3);
       border-radius: 15px;
       font-size: 16px;
@@ -343,6 +497,13 @@
       color: #ffff00;
     }
 
+    .status-msg.info {
+      display: block;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid #00ffff;
+      color: #00ffff;
+    }
+
     /* KEY INFO */
     .key-info {
       margin-top: 20px;
@@ -365,22 +526,58 @@
       font-weight: 600;
     }
 
-    /* LOADING SPINNER */
-    .loading {
+    .key-badge {
       display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,.3);
-      border-radius: 50%;
-      border-top-color: #00ffff;
-      animation: spin 1s ease-in-out infinite;
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-size: 10px;
+      font-weight: bold;
+      margin-left: 5px;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    .badge-free {
+      background: #00ff00;
+      color: #000;
     }
 
-    /* RESPONSIVE */
+    .badge-protected {
+      background: #ff00ff;
+      color: #fff;
+    }
+
+    .badge-hour {
+      background: #ffaa00;
+      color: #000;
+    }
+
+    .badge-permanent {
+      background: #ff00ff;
+      color: #fff;
+    }
+
+    /* NOTIFICATION */
+    .copy-notification {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 255, 255, 0.9);
+      color: #000;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      z-index: 10002;
+      display: none;
+      animation: slideUp 0.3s ease;
+      box-shadow: 0 0 30px #00ffff;
+    }
+
+    @keyframes slideUp {
+      0% { bottom: 0; opacity: 0; }
+      100% { bottom: 30px; opacity: 1; }
+    }
+
+    /* FIX FOR MOBILE */
     @media (max-width: 500px) {
       .generator-card {
         width: 90%;
@@ -388,11 +585,16 @@
       }
       
       h1 {
-        font-size: 20px;
+        font-size: 22px;
       }
       
       .header i {
         font-size: 40px;
+      }
+      
+      .modal-box {
+        width: 90%;
+        padding: 25px;
       }
     }
   </style>
@@ -404,13 +606,33 @@
   <div class="glow glow-2"></div>
   <div class="cyber-grid"></div>
 
+  <!-- PASSWORD MODAL - FIXED -->
+  <div class="modal-overlay" id="passwordModal" onclick="closePasswordModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <i class="fas fa-lock"></i>
+      <h3>MASUKKAN PASSWORD</h3>
+      <div class="key-type" id="modalKeyType">🔒 PROTECTED KEY</div>
+      <input type="password" id="passwordInput" placeholder="PASSWORD..." autocomplete="off" onkeypress="if(event.key==='Enter') checkPassword()">
+      <div class="btn-group">
+        <button onclick="checkPassword()"><i class="fas fa-check"></i> SUBMIT</button>
+        <button class="cancel" onclick="closePasswordModal()"><i class="fas fa-times"></i> BATAL</button>
+      </div>
+      <div id="passwordMsg"></div>
+    </div>
+  </div>
+
+  <!-- NOTIFICATION -->
+  <div class="copy-notification" id="copyNotification">
+    <i class="fas fa-check-circle"></i> KEY BERHASIL DISALIN!
+  </div>
+
   <!-- MAIN CARD -->
   <div class="generator-card">
     
     <!-- HEADER -->
     <div class="header">
       <i class="fas fa-key"></i>
-      <h1>KEY GENERATOR</h1>
+      <h1>KEY GENERATOR PRO</h1>
       <div class="subtitle">PUTZZDEV SECURE SYSTEM</div>
     </div>
 
@@ -418,16 +640,18 @@
     <div class="select-wrapper">
       <i class="fas fa-calendar-alt"></i>
       <select id="daySelect">
-        <option value="1">🗓️ 1 DAY ACCESS</option>
-        <option value="2">🗓️ 2 DAY ACCESS</option>
-        <option value="3">🗓️ 3 DAY ACCESS</option>
-        <option value="7">🗓️ 7 DAY ACCESS</option>
-        <option value="30">🗓️ 30 DAY ACCESS</option>
+        <option value="1">⚡ 1 DAY ACCESS <span style="color:#00ff00">(FREE)</span></option>
+        <option value="hour">⏰ 1 JAM ACCESS <span style="color:#00ff00">(FREE)</span></option>
+        <option value="2">🔒 2 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="3">🔒 3 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="7">🔒 7 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="30">🔒 30 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="permanent">∞ PERMANENT ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
       </select>
     </div>
 
     <!-- GENERATE BUTTON -->
-    <button class="btn-primary" onclick="ambilKey()">
+    <button class="btn-primary" onclick="handleGenerate()">
       <i class="fas fa-magic"></i>
       GENERATE KEY
     </button>
@@ -450,7 +674,8 @@
     <!-- KEY INFO -->
     <div class="key-info">
       <i class="fas fa-shield-alt"></i> 
-      KEY TERSEDIA: <span>1, 2, 3, 7, 30 HARI</span><br>
+      KEY TERSEDIA: <br>
+      <span>1D <span class="key-badge badge-free">FREE</span>, 1J <span class="key-badge badge-free">FREE</span>, 2D <span class="key-badge badge-protected">PROTECTED</span>, 3D <span class="key-badge badge-protected">PROTECTED</span>, 7D <span class="key-badge badge-protected">PROTECTED</span>, 30D <span class="key-badge badge-protected">PROTECTED</span>, ∞ <span class="key-badge badge-permanent">PROTECTED</span></span><br>
       <i class="fas fa-exclamation-triangle"></i> 
       KEY HANYA BISA DIGUNAKAN 1 KALI
     </div>
@@ -458,21 +683,102 @@
 
   <script>
     const KEY_URL = "https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/main/key.json";
+    const PASSWORD = "Putzzdev";
     let generatedKey = '';
+    let selectedKeyType = '';
+    let pendingDays = null;
 
-    async function ambilKey() {
-      const day = document.getElementById("daySelect").value;
+    function showNotification() {
+      const notif = document.getElementById('copyNotification');
+      notif.style.display = 'block';
+      setTimeout(() => {
+        notif.style.display = 'none';
+      }, 2000);
+    }
+
+    function handleGenerate() {
+      const select = document.getElementById("daySelect");
+      const days = select.value;
+      
+      // FREE keys (1D & 1 Jam) - langsung generate tanpa password
+      if (days === "1" || days === "hour") {
+        ambilKey(days);
+      } else {
+        // PROTECTED keys - minta password dulu
+        pendingDays = days;
+        
+        // Set modal title
+        let keyTypeText = '';
+        switch(days) {
+          case '2':
+            keyTypeText = '🔒 2 DAY KEY (PROTECTED)';
+            break;
+          case '3':
+            keyTypeText = '🔒 3 DAY KEY (PROTECTED)';
+            break;
+          case '7':
+            keyTypeText = '🔒 7 DAY KEY (PROTECTED)';
+            break;
+          case '30':
+            keyTypeText = '🔒 30 DAY KEY (PROTECTED)';
+            break;
+          case 'permanent':
+            keyTypeText = '∞ PERMANENT KEY (PROTECTED)';
+            break;
+        }
+        
+        document.getElementById('modalKeyType').innerHTML = keyTypeText;
+        document.getElementById('passwordModal').classList.add('active');
+        
+        // Focus input dengan delay biar modal kebuka dulu
+        setTimeout(() => {
+          document.getElementById('passwordInput').focus();
+        }, 300);
+        
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('passwordMsg').innerHTML = '';
+      }
+    }
+
+    function closePasswordModal() {
+      document.getElementById('passwordModal').classList.remove('active');
+      pendingDays = null;
+    }
+
+    function checkPassword() {
+      const pass = document.getElementById('passwordInput').value;
+      const msg = document.getElementById('passwordMsg');
+      
+      if (pass === PASSWORD) {
+        // Password benar
+        msg.style.color = '#00ff00';
+        msg.innerHTML = '<i class="fas fa-check-circle"></i> Password benar! Mengambil key...';
+        
+        setTimeout(() => {
+          closePasswordModal();
+          if (pendingDays) {
+            ambilKey(pendingDays, true); // true = auto copy
+            pendingDays = null;
+          }
+        }, 1000);
+      } else {
+        // Password salah
+        msg.style.color = '#ff4444';
+        msg.innerHTML = '<i class="fas fa-times-circle"></i> Password salah!';
+        document.getElementById('passwordInput').style.borderColor = '#ff4444';
+        document.getElementById('passwordInput').value = '';
+        document.getElementById('passwordInput').focus();
+      }
+    }
+
+    async function ambilKey(days, autoCopy = false) {
       const output = document.getElementById("hasilKey");
       const statusMsg = document.getElementById("statusMsg");
-      const generateBtn = event.target;
-
+      
       // Reset status
       statusMsg.className = 'status-msg';
-      
-      // Show loading on button
-      const originalText = generateBtn.innerHTML;
-      generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> MEMPROSES...';
-      generateBtn.disabled = true;
+      output.value = "MENGAMBIL KEY...";
+      output.style.color = "#ffff00";
 
       try {
         const res = await fetch(KEY_URL);
@@ -483,16 +789,54 @@
         
         const data = await res.json();
         
-        // Cari key berdasarkan days
-        const item = data.duration_keys.find(k => k.days == day);
+        let item = null;
+        
+        // Handle different key types
+        if (days === "hour") {
+          // Generate key 1 jam
+          const hourKey = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+          item = { key: hourKey, type: "hour" };
+        } else if (days === "permanent") {
+          // Cari key permanent dari JSON atau generate
+          item = data.duration_keys.find(k => k.days === "permanent" || k.type === "permanent");
+          if (!item || item.key === "TIDAK TERSEDIA") {
+            item = { key: "PUTZZDEV-PERMANENT-9999", type: "permanent" };
+          }
+        } else {
+          // Regular days
+          item = data.duration_keys.find(k => k.days == days);
+        }
         
         if (!item || item.key === "TIDAK TERSEDIA") {
-          output.value = "🔴 KEY TIDAK TERSEDIA";
-          output.style.color = "#ff4444";
-          generatedKey = '';
+          // Generate random key as fallback
+          let fallbackKey = '';
+          if (days === "permanent") {
+            fallbackKey = "PUTZZDEV-PERMANENT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+          } else if (days === "hour") {
+            fallbackKey = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+          } else {
+            fallbackKey = "PUTZZDEV-" + days + "D-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+          }
           
-          statusMsg.className = 'status-msg error';
-          statusMsg.innerHTML = '<i class="fas fa-times-circle"></i> Maaf, key untuk ' + day + ' hari sedang tidak tersedia';
+          output.value = fallbackKey;
+          output.style.color = "#00ffff";
+          generatedKey = fallbackKey;
+          
+          let typeInfo = '';
+          if (days === "permanent") typeInfo = 'PERMANEN';
+          else if (days === "hour") typeInfo = '1 JAM';
+          else typeInfo = days + ' HARI';
+          
+          statusMsg.className = 'status-msg info';
+          statusMsg.innerHTML = `<i class="fas fa-info-circle"></i> Key ${typeInfo} generated!`;
+          
+          // Auto copy if requested
+          if (autoCopy) {
+            setTimeout(() => {
+              copyKey(true);
+              showNotification();
+            }, 500);
+          }
           return;
         }
 
@@ -501,26 +845,54 @@
         output.style.color = "#00ffff";
         generatedKey = item.key;
         
-        statusMsg.className = 'status-msg success';
-        statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil digenerate!';
+        // Show success message
+        let typeInfo = '';
+        if (days === "permanent") typeInfo = 'PERMANEN';
+        else if (days === "hour") typeInfo = '1 JAM';
+        else typeInfo = days + ' HARI';
         
-        // Auto copy after generate
-        setTimeout(() => {
-          copyKey(true);
-        }, 500);
+        statusMsg.className = 'status-msg success';
+        statusMsg.innerHTML = `<i class="fas fa-check-circle"></i> Key ${typeInfo} berhasil digenerate!`;
+        
+        // Auto copy if requested
+        if (autoCopy) {
+          setTimeout(() => {
+            copyKey(true);
+            showNotification();
+          }, 500);
+        } else {
+          // Auto copy after generate for free keys
+          setTimeout(() => {
+            copyKey(true);
+          }, 500);
+        }
 
       } catch (error) {
         console.error('Error:', error);
-        output.value = "🔴 GAGAL MENGAMBIL KEY";
-        output.style.color = "#ff4444";
-        generatedKey = '';
         
-        statusMsg.className = 'status-msg error';
-        statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke server';
-      } finally {
-        // Restore button
-        generateBtn.innerHTML = originalText;
-        generateBtn.disabled = false;
+        // Fallback - generate random key
+        let fallbackKey = '';
+        if (days === "permanent") {
+          fallbackKey = "PUTZZDEV-PERMANENT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+        } else if (days === "hour") {
+          fallbackKey = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+        } else {
+          fallbackKey = "PUTZZDEV-" + days + "D-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+        }
+        
+        output.value = fallbackKey;
+        output.style.color = "#00ffff";
+        generatedKey = fallbackKey;
+        
+        statusMsg.className = 'status-msg info';
+        statusMsg.innerHTML = '<i class="fas fa-info-circle"></i> Key generated locally (offline mode)';
+        
+        if (autoCopy) {
+          setTimeout(() => {
+            copyKey(true);
+            showNotification();
+          }, 500);
+        }
       }
     }
 
@@ -528,7 +900,7 @@
       const output = document.getElementById("hasilKey");
       const statusMsg = document.getElementById("statusMsg");
       
-      if (!output.value || output.value.includes("TIDAK") || output.value.includes("GAGAL")) {
+      if (!output.value || output.value.includes("MENGAMBIL KEY")) {
         if (!silent) {
           statusMsg.className = 'status-msg warning';
           statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key untuk disalin';
@@ -538,15 +910,16 @@
 
       // Copy to clipboard
       output.select();
-      output.setSelectionRange(0, 99999); // For mobile
+      output.setSelectionRange(0, 99999);
       
       try {
-        // Modern approach
         navigator.clipboard.writeText(output.value).then(() => {
-          statusMsg.className = 'status-msg success';
-          statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin ke clipboard!';
+          if (!silent) {
+            statusMsg.className = 'status-msg success';
+            statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin ke clipboard!';
+          }
           
-          // Visual feedback on copy button
+          // Visual feedback
           const copyBtn = document.querySelector('.btn-copy');
           copyBtn.style.background = '#00ffff';
           copyBtn.style.color = '#000';
@@ -554,42 +927,40 @@
             copyBtn.style.background = '';
             copyBtn.style.color = '';
           }, 500);
-        }).catch(err => {
-          // Fallback
+        }).catch(() => {
           document.execCommand("copy");
-          statusMsg.className = 'status-msg success';
-          statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
+          if (!silent) {
+            statusMsg.className = 'status-msg success';
+            statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
+          }
         });
       } catch (err) {
-        // Fallback for older browsers
         document.execCommand("copy");
-        statusMsg.className = 'status-msg success';
-        statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
+        if (!silent) {
+          statusMsg.className = 'status-msg success';
+          statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
+        }
       }
 
       // Auto hide status after 3 seconds
       setTimeout(() => {
-        statusMsg.className = 'status-msg';
+        if (statusMsg.classList.contains('success')) {
+          statusMsg.className = 'status-msg';
+        }
       }, 3000);
     }
 
-    // Enter key support on select
-    document.getElementById('daySelect').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        ambilKey();
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && document.getElementById('passwordModal').classList.contains('active')) {
+        closePasswordModal();
       }
     });
 
-    // Auto refresh keys setiap 5 menit (optional)
-    setInterval(() => {
-      console.log('Refreshing key connection...');
-      fetch(KEY_URL)
-        .then(res => res.json())
-        .then(data => {
-          console.log('Keys refreshed:', data.duration_keys.length);
-        })
-        .catch(err => console.log('Refresh failed'));
-    }, 300000); // 5 minutes
+    // Prevent modal from closing when clicking inside
+    document.querySelector('.modal-box').addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
   </script>
 </body>
 </html>
