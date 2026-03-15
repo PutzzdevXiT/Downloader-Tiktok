@@ -139,7 +139,7 @@
       letter-spacing: 1px;
     }
 
-    /* PASSWORD MODAL - FIXED */
+    /* PASSWORD MODAL */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -167,51 +167,24 @@
       text-align: center;
       box-shadow: 0 0 60px #00ffff,
                   inset 0 0 30px rgba(0, 255, 255, 0.3);
-      animation: modalPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      position: relative;
-      overflow: hidden;
-      pointer-events: auto;
-    }
-
-    .modal-box::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: linear-gradient(
-        45deg,
-        transparent,
-        rgba(0, 255, 255, 0.1),
-        transparent
-      );
-      animation: modalShine 3s linear infinite;
-    }
-
-    @keyframes modalShine {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+      animation: modalPop 0.4s ease;
     }
 
     @keyframes modalPop {
-      0% { transform: scale(0.5) rotate(-10deg); opacity: 0; }
-      100% { transform: scale(1) rotate(0); opacity: 1; }
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
     }
 
     .modal-box i {
       font-size: 50px;
       color: #00ffff;
       margin-bottom: 20px;
-      text-shadow: 0 0 20px #00ffff;
     }
 
     .modal-box h3 {
       color: #fff;
       font-size: 22px;
       margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
     }
 
     .modal-box .key-type {
@@ -234,22 +207,11 @@
       font-size: 18px;
       margin-bottom: 25px;
       text-align: center;
-      font-weight: bold;
-      letter-spacing: 2px;
-      pointer-events: auto;
-      z-index: 10000;
-    }
-
-    .modal-box input:focus {
-      outline: none;
-      box-shadow: 0 0 30px #00ffff;
     }
 
     .modal-box .btn-group {
       display: flex;
       gap: 10px;
-      position: relative;
-      z-index: 10000;
     }
 
     .modal-box button {
@@ -260,38 +222,13 @@
       border-radius: 12px;
       color: #fff;
       font-weight: bold;
-      font-size: 16px;
       cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      pointer-events: auto;
-      position: relative;
-      z-index: 10001;
-    }
-
-    .modal-box button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 255, 255, 0.4);
     }
 
     .modal-box button.cancel {
       background: transparent;
       border: 2px solid #ff4444;
       color: #ff4444;
-    }
-
-    .modal-box button.cancel:hover {
-      background: #ff4444;
-      color: #fff;
-      box-shadow: 0 10px 20px rgba(255, 68, 68, 0.4);
-    }
-
-    #passwordMsg {
-      margin-top: 15px;
-      color: #ff4444;
-      font-size: 14px;
-      min-height: 20px;
     }
 
     /* DROPDOWN STYLE */
@@ -306,9 +243,7 @@
       top: 50%;
       transform: translateY(-50%);
       color: #00ffff;
-      font-size: 18px;
       z-index: 1;
-      text-shadow: 0 0 10px #00ffff;
     }
 
     select {
@@ -319,26 +254,12 @@
       border-radius: 15px;
       font-size: 16px;
       color: #fff;
-      font-family: 'Space Grotesk', sans-serif;
       appearance: none;
       cursor: pointer;
-      transition: all 0.3s ease;
     }
 
     select:hover {
       border-color: #00ffff;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #00ffff;
-      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    }
-
-    select option {
-      background: #0a0a0f;
-      color: #fff;
     }
 
     .select-wrapper::after {
@@ -350,8 +271,6 @@
       top: 50%;
       transform: translateY(-50%);
       color: #00ffff;
-      pointer-events: none;
-      text-shadow: 0 0 10px #00ffff;
     }
 
     /* BUTTON STYLE */
@@ -364,12 +283,7 @@
       font-size: 16px;
       font-weight: 600;
       color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 2px;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
       margin-bottom: 15px;
       display: flex;
       align-items: center;
@@ -377,31 +291,12 @@
       gap: 10px;
     }
 
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .btn-primary:hover::before {
-      left: 100%;
-    }
-
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
     }
 
-    .btn-primary i {
-      font-size: 18px;
-    }
-
-    /* INPUT DISPLAY */
+    /* KEY DISPLAY */
     .key-display {
       position: relative;
       margin: 20px 0;
@@ -413,8 +308,6 @@
       top: 50%;
       transform: translateY(-50%);
       color: #00ffff;
-      font-size: 18px;
-      text-shadow: 0 0 10px #00ffff;
     }
 
     input {
@@ -425,15 +318,7 @@
       border-radius: 15px;
       font-size: 14px;
       color: #00ffff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 600;
       text-align: center;
-      letter-spacing: 1px;
-      box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2);
-    }
-
-    input:focus {
-      outline: none;
     }
 
     /* COPY BUTTON */
@@ -446,10 +331,7 @@
       font-size: 16px;
       font-weight: 600;
       color: #00ffff;
-      text-transform: uppercase;
-      letter-spacing: 2px;
       cursor: pointer;
-      transition: all 0.3s ease;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -459,11 +341,6 @@
     .btn-copy:hover {
       background: #00ffff;
       color: #000;
-      box-shadow: 0 0 30px #00ffff;
-    }
-
-    .btn-copy i {
-      font-size: 18px;
     }
 
     /* STATUS MESSAGE */
@@ -490,35 +367,15 @@
       color: #ff0000;
     }
 
-    .status-msg.warning {
-      display: block;
-      background: rgba(255, 255, 0, 0.1);
-      border: 1px solid #ffff00;
-      color: #ffff00;
-    }
-
-    .status-msg.info {
-      display: block;
-      background: rgba(0, 255, 255, 0.1);
-      border: 1px solid #00ffff;
-      color: #00ffff;
-    }
-
     /* KEY INFO */
     .key-info {
       margin-top: 20px;
       padding: 15px;
       background: rgba(0, 255, 255, 0.05);
-      border: 1px solid rgba(0, 255, 255, 0.2);
       border-radius: 10px;
       font-size: 12px;
       color: rgba(255, 255, 255, 0.5);
       text-align: center;
-    }
-
-    .key-info i {
-      color: #00ffff;
-      margin-right: 5px;
     }
 
     .key-info span {
@@ -531,7 +388,6 @@
       padding: 3px 8px;
       border-radius: 5px;
       font-size: 10px;
-      font-weight: bold;
       margin-left: 5px;
     }
 
@@ -541,16 +397,6 @@
     }
 
     .badge-protected {
-      background: #ff00ff;
-      color: #fff;
-    }
-
-    .badge-hour {
-      background: #ffaa00;
-      color: #000;
-    }
-
-    .badge-permanent {
       background: #ff00ff;
       color: #fff;
     }
@@ -569,33 +415,11 @@
       z-index: 10002;
       display: none;
       animation: slideUp 0.3s ease;
-      box-shadow: 0 0 30px #00ffff;
     }
 
     @keyframes slideUp {
       0% { bottom: 0; opacity: 0; }
       100% { bottom: 30px; opacity: 1; }
-    }
-
-    /* FIX FOR MOBILE */
-    @media (max-width: 500px) {
-      .generator-card {
-        width: 90%;
-        padding: 30px 20px;
-      }
-      
-      h1 {
-        font-size: 22px;
-      }
-      
-      .header i {
-        font-size: 40px;
-      }
-      
-      .modal-box {
-        width: 90%;
-        padding: 25px;
-      }
     }
   </style>
 </head>
@@ -606,7 +430,7 @@
   <div class="glow glow-2"></div>
   <div class="cyber-grid"></div>
 
-  <!-- PASSWORD MODAL - FIXED -->
+  <!-- PASSWORD MODAL -->
   <div class="modal-overlay" id="passwordModal" onclick="closePasswordModal()">
     <div class="modal-box" onclick="event.stopPropagation()">
       <i class="fas fa-lock"></i>
@@ -629,14 +453,12 @@
   <!-- MAIN CARD -->
   <div class="generator-card">
     
-    <!-- HEADER -->
     <div class="header">
       <i class="fas fa-key"></i>
       <h1>KEY GENERATOR PRO</h1>
       <div class="subtitle">PUTZZDEV SECURE SYSTEM</div>
     </div>
 
-    <!-- DURATION SELECT -->
     <div class="select-wrapper">
       <i class="fas fa-calendar-alt"></i>
       <select id="daySelect">
@@ -650,34 +472,25 @@
       </select>
     </div>
 
-    <!-- GENERATE BUTTON -->
     <button class="btn-primary" onclick="handleGenerate()">
-      <i class="fas fa-magic"></i>
-      GENERATE KEY
+      <i class="fas fa-magic"></i> GENERATE KEY
     </button>
 
-    <!-- KEY DISPLAY -->
     <div class="key-display">
       <i class="fas fa-id-card"></i>
       <input type="text" id="hasilKey" placeholder="KEY AKAN MUNCUL DISINI" readonly>
     </div>
 
-    <!-- COPY BUTTON -->
     <button class="btn-copy" onclick="copyKey()">
-      <i class="fas fa-copy"></i>
-      COPY KEY
+      <i class="fas fa-copy"></i> COPY KEY
     </button>
 
-    <!-- STATUS MESSAGE -->
     <div id="statusMsg" class="status-msg"></div>
 
-    <!-- KEY INFO -->
     <div class="key-info">
       <i class="fas fa-shield-alt"></i> 
       KEY TERSEDIA: <br>
-      <span>1D <span class="key-badge badge-free">FREE</span>, 1J <span class="key-badge badge-free">FREE</span>, 2D <span class="key-badge badge-protected">PROTECTED</span>, 3D <span class="key-badge badge-protected">PROTECTED</span>, 7D <span class="key-badge badge-protected">PROTECTED</span>, 30D <span class="key-badge badge-protected">PROTECTED</span>, ∞ <span class="key-badge badge-permanent">PROTECTED</span></span><br>
-      <i class="fas fa-exclamation-triangle"></i> 
-      KEY HANYA BISA DIGUNAKAN 1 KALI
+      <span>1D <span class="key-badge badge-free">FREE</span>, 1J <span class="key-badge badge-free">FREE</span>, 2D <span class="key-badge badge-protected">PROTECTED</span>, 3D <span class="key-badge badge-protected">PROTECTED</span>, 7D <span class="key-badge badge-protected">PROTECTED</span>, 30D <span class="key-badge badge-protected">PROTECTED</span>, ∞ <span class="key-badge badge-permanent">PROTECTED</span></span>
     </div>
   </div>
 
@@ -685,8 +498,45 @@
     const KEY_URL = "https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/main/key.json";
     const PASSWORD = "Putzzdev";
     let generatedKey = '';
-    let selectedKeyType = '';
     let pendingDays = null;
+
+    // Cache untuk menyimpan key dari JSON
+    let keyCache = null;
+
+    // Fungsi untuk mengambil key dari JSON
+    async function getKeyFromJSON(days) {
+      try {
+        // Kalau belum ada cache, ambil dulu
+        if (!keyCache) {
+          console.log("Mengambil data dari JSON...");
+          const res = await fetch(KEY_URL);
+          if (!res.ok) throw new Error('Gagal mengambil data');
+          keyCache = await res.json();
+          console.log("Data JSON:", keyCache);
+        }
+
+        // Cari key berdasarkan days
+        let item = null;
+        
+        if (days === "hour") {
+          // Untuk 1 jam, kita generate random
+          item = { key: "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase() };
+        } else if (days === "permanent") {
+          // Cari key permanent
+          item = keyCache.duration_keys.find(k => k.days === "permanent" || k.type === "permanent");
+          if (!item) item = { key: "PUTZZDEV-PERMANENT-9999" };
+        } else {
+          // Cari berdasarkan days (1,2,3,7,30)
+          item = keyCache.duration_keys.find(k => k.days == days);
+          console.log(`Mencari key untuk ${days} hari:`, item);
+        }
+
+        return item;
+      } catch (error) {
+        console.error("Error mengambil JSON:", error);
+        return null;
+      }
+    }
 
     function showNotification() {
       const notif = document.getElementById('copyNotification');
@@ -700,41 +550,25 @@
       const select = document.getElementById("daySelect");
       const days = select.value;
       
-      // FREE keys (1D & 1 Jam) - langsung generate tanpa password
       if (days === "1" || days === "hour") {
         ambilKey(days);
       } else {
-        // PROTECTED keys - minta password dulu
         pendingDays = days;
         
-        // Set modal title
         let keyTypeText = '';
         switch(days) {
-          case '2':
-            keyTypeText = '🔒 2 DAY KEY (PROTECTED)';
-            break;
-          case '3':
-            keyTypeText = '🔒 3 DAY KEY (PROTECTED)';
-            break;
-          case '7':
-            keyTypeText = '🔒 7 DAY KEY (PROTECTED)';
-            break;
-          case '30':
-            keyTypeText = '🔒 30 DAY KEY (PROTECTED)';
-            break;
-          case 'permanent':
-            keyTypeText = '∞ PERMANENT KEY (PROTECTED)';
-            break;
+          case '2': keyTypeText = '🔒 2 DAY KEY'; break;
+          case '3': keyTypeText = '🔒 3 DAY KEY'; break;
+          case '7': keyTypeText = '🔒 7 DAY KEY'; break;
+          case '30': keyTypeText = '🔒 30 DAY KEY'; break;
+          case 'permanent': keyTypeText = '∞ PERMANENT KEY'; break;
         }
         
         document.getElementById('modalKeyType').innerHTML = keyTypeText;
         document.getElementById('passwordModal').classList.add('active');
-        
-        // Focus input dengan delay biar modal kebuka dulu
         setTimeout(() => {
           document.getElementById('passwordInput').focus();
         }, 300);
-        
         document.getElementById('passwordInput').value = '';
         document.getElementById('passwordMsg').innerHTML = '';
       }
@@ -750,26 +584,21 @@
       const msg = document.getElementById('passwordMsg');
       
       if (pass === PASSWORD) {
-        // Password benar
         msg.style.color = '#00ff00';
-        msg.innerHTML = '<i class="fas fa-check-circle"></i> Password benar! Mengambil key...';
+        msg.innerHTML = '<i class="fas fa-check-circle"></i> Password benar!';
         
-        // Langsung ambil key tanpa nunggu lama
         if (pendingDays) {
-          ambilKey(pendingDays, true); // true = auto copy
+          ambilKey(pendingDays, true);
           pendingDays = null;
         }
         
-        // Tutup modal
         setTimeout(() => {
           closePasswordModal();
         }, 500);
         
       } else {
-        // Password salah
         msg.style.color = '#ff4444';
         msg.innerHTML = '<i class="fas fa-times-circle"></i> Password salah!';
-        document.getElementById('passwordInput').style.borderColor = '#ff4444';
         document.getElementById('passwordInput').value = '';
         document.getElementById('passwordInput').focus();
       }
@@ -779,80 +608,38 @@
       const output = document.getElementById("hasilKey");
       const statusMsg = document.getElementById("statusMsg");
       
-      // Reset status
       statusMsg.className = 'status-msg';
       output.value = "MENGAMBIL KEY...";
       output.style.color = "#ffff00";
 
       try {
-        console.log("Mengambil key untuk days:", days);
-        const res = await fetch(KEY_URL);
+        // Ambil key dari JSON
+        const item = await getKeyFromJSON(days);
         
-        if (!res.ok) {
-          throw new Error('Network response was not ok');
-        }
+        let keyValue = '';
         
-        const data = await res.json();
-        console.log("Data dari JSON:", data);
-        
-        let item = null;
-        
-        // Handle different key types
-        if (days === "hour") {
-          // Generate key 1 jam
-          const hourKey = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-          item = { key: hourKey, type: "hour" };
-        } else if (days === "permanent") {
-          // Cari key permanent dari JSON atau generate
-          item = data.duration_keys.find(k => k.days === "permanent" || k.type === "permanent");
-          if (!item || item.key === "TIDAK TERSEDIA") {
-            item = { key: "PUTZZDEV-PERMANENT-9999", type: "permanent" };
-          }
+        if (item && item.key && item.key !== "TIDAK TERSEDIA") {
+          // Gunakan key dari JSON
+          keyValue = item.key;
+          console.log(`Menggunakan key dari JSON: ${keyValue}`);
         } else {
-          // Regular days - cari berdasarkan days
-          item = data.duration_keys.find(k => k.days == days);
-          console.log("Item ditemukan untuk days", days, ":", item);
-        }
-        
-        if (!item || item.key === "TIDAK TERSEDIA") {
-          // Generate random key as fallback
-          let fallbackKey = '';
+          // Fallback: generate random key
           if (days === "permanent") {
-            fallbackKey = "PUTZZDEV-PERMANENT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            keyValue = "PUTZZDEV-PERMANENT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
           } else if (days === "hour") {
-            fallbackKey = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            keyValue = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
           } else {
-            fallbackKey = "PUTZZDEV-" + days + "D-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+            keyValue = "PUTZZDEV-" + days + "D-" + Math.random().toString(36).substring(2, 10).toUpperCase();
           }
-          
-          output.value = fallbackKey;
-          output.style.color = "#00ffff";
-          generatedKey = fallbackKey;
-          
-          let typeInfo = '';
-          if (days === "permanent") typeInfo = 'PERMANEN';
-          else if (days === "hour") typeInfo = '1 JAM';
-          else typeInfo = days + ' HARI';
-          
-          statusMsg.className = 'status-msg info';
-          statusMsg.innerHTML = `<i class="fas fa-info-circle"></i> Key ${typeInfo} generated!`;
-          
-          // Auto copy jika diminta
-          if (autoCopy) {
-            setTimeout(() => {
-              copyKey(true);
-              showNotification();
-            }, 300);
-          }
-          return;
+          console.log(`Key tidak ditemukan di JSON, generate random: ${keyValue}`);
         }
 
-        // Key ditemukan
-        output.value = item.key;
+        // Tampilkan key
+        output.value = keyValue;
         output.style.color = "#00ffff";
-        generatedKey = item.key;
+        generatedKey = keyValue;
         
-        // Show success message
+        // Tampilkan pesan sukses
         let typeInfo = '';
         if (days === "permanent") typeInfo = 'PERMANEN';
         else if (days === "hour") typeInfo = '1 JAM';
@@ -861,30 +648,23 @@
         statusMsg.className = 'status-msg success';
         statusMsg.innerHTML = `<i class="fas fa-check-circle"></i> Key ${typeInfo} berhasil digenerate!`;
         
-        // Auto copy jika diminta (untuk protected keys) atau selalu auto copy untuk free keys
-        if (autoCopy) {
-          setTimeout(() => {
-            copyKey(true);
-            showNotification();
-          }, 300);
-        } else {
-          // Auto copy untuk free keys
-          setTimeout(() => {
-            copyKey(true);
-          }, 300);
-        }
+        // Auto copy
+        setTimeout(() => {
+          copyKey(true);
+          if (autoCopy) showNotification();
+        }, 300);
 
       } catch (error) {
         console.error('Error:', error);
         
-        // Fallback - generate random key
+        // Fallback error
         let fallbackKey = '';
         if (days === "permanent") {
-          fallbackKey = "PUTZZDEV-PERMANENT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+          fallbackKey = "PUTZZDEV-PERMANENT-9999";
         } else if (days === "hour") {
-          fallbackKey = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+          fallbackKey = "PUTZZDEV-1HOUR-TRIAL";
         } else {
-          fallbackKey = "PUTZZDEV-" + days + "D-" + Math.random().toString(36).substring(2, 10).toUpperCase();
+          fallbackKey = "PUTZZDEV-" + days + "D-DEFAULT";
         }
         
         output.value = fallbackKey;
@@ -892,7 +672,7 @@
         generatedKey = fallbackKey;
         
         statusMsg.className = 'status-msg info';
-        statusMsg.innerHTML = '<i class="fas fa-info-circle"></i> Key generated locally (offline mode)';
+        statusMsg.innerHTML = '<i class="fas fa-info-circle"></i> Menggunakan key default';
         
         if (autoCopy) {
           setTimeout(() => {
@@ -910,12 +690,11 @@
       if (!output.value || output.value.includes("MENGAMBIL KEY")) {
         if (!silent) {
           statusMsg.className = 'status-msg warning';
-          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key untuk disalin';
+          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key';
         }
         return;
       }
 
-      // Copy to clipboard
       output.select();
       output.setSelectionRange(0, 99999);
       
@@ -923,48 +702,23 @@
         navigator.clipboard.writeText(output.value).then(() => {
           if (!silent) {
             statusMsg.className = 'status-msg success';
-            statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin ke clipboard!';
+            statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key disalin!';
           }
-          
-          // Visual feedback
-          const copyBtn = document.querySelector('.btn-copy');
-          copyBtn.style.background = '#00ffff';
-          copyBtn.style.color = '#000';
-          setTimeout(() => {
-            copyBtn.style.background = '';
-            copyBtn.style.color = '';
-          }, 500);
         }).catch(() => {
           document.execCommand("copy");
-          if (!silent) {
-            statusMsg.className = 'status-msg success';
-            statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
-          }
         });
       } catch (err) {
         document.execCommand("copy");
-        if (!silent) {
-          statusMsg.className = 'status-msg success';
-          statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
-        }
       }
-
-      // Auto hide status after 3 seconds
-      setTimeout(() => {
-        if (statusMsg.classList.contains('success')) {
-          statusMsg.className = 'status-msg';
-        }
-      }, 3000);
     }
 
-    // Close modal with Escape key
+    // Event listeners
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && document.getElementById('passwordModal').classList.contains('active')) {
         closePasswordModal();
       }
     });
 
-    // Prevent modal from closing when clicking inside
     document.querySelector('.modal-box').addEventListener('click', (e) => {
       e.stopPropagation();
     });
