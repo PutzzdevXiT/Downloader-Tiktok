@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Putzz-HUB • KEY GENERATOR PRO</title>
+  <title>PUTZZDEV • KEY GENERATOR PRO</title>
   
   <!-- FONTS & ICONS -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -754,13 +754,17 @@
         msg.style.color = '#00ff00';
         msg.innerHTML = '<i class="fas fa-check-circle"></i> Password benar! Mengambil key...';
         
+        // Langsung ambil key tanpa nunggu lama
+        if (pendingDays) {
+          ambilKey(pendingDays, true); // true = auto copy
+          pendingDays = null;
+        }
+        
+        // Tutup modal
         setTimeout(() => {
           closePasswordModal();
-          if (pendingDays) {
-            ambilKey(pendingDays, true); // true = auto copy
-            pendingDays = null;
-          }
-        }, 1000);
+        }, 500);
+        
       } else {
         // Password salah
         msg.style.color = '#ff4444';
@@ -781,6 +785,7 @@
       output.style.color = "#ffff00";
 
       try {
+        console.log("Mengambil key untuk days:", days);
         const res = await fetch(KEY_URL);
         
         if (!res.ok) {
@@ -788,6 +793,7 @@
         }
         
         const data = await res.json();
+        console.log("Data dari JSON:", data);
         
         let item = null;
         
@@ -803,8 +809,9 @@
             item = { key: "PUTZZDEV-PERMANENT-9999", type: "permanent" };
           }
         } else {
-          // Regular days
+          // Regular days - cari berdasarkan days
           item = data.duration_keys.find(k => k.days == days);
+          console.log("Item ditemukan untuk days", days, ":", item);
         }
         
         if (!item || item.key === "TIDAK TERSEDIA") {
@@ -830,12 +837,12 @@
           statusMsg.className = 'status-msg info';
           statusMsg.innerHTML = `<i class="fas fa-info-circle"></i> Key ${typeInfo} generated!`;
           
-          // Auto copy if requested
+          // Auto copy jika diminta
           if (autoCopy) {
             setTimeout(() => {
               copyKey(true);
               showNotification();
-            }, 500);
+            }, 300);
           }
           return;
         }
@@ -854,17 +861,17 @@
         statusMsg.className = 'status-msg success';
         statusMsg.innerHTML = `<i class="fas fa-check-circle"></i> Key ${typeInfo} berhasil digenerate!`;
         
-        // Auto copy if requested
+        // Auto copy jika diminta (untuk protected keys) atau selalu auto copy untuk free keys
         if (autoCopy) {
           setTimeout(() => {
             copyKey(true);
             showNotification();
-          }, 500);
+          }, 300);
         } else {
-          // Auto copy after generate for free keys
+          // Auto copy untuk free keys
           setTimeout(() => {
             copyKey(true);
-          }, 500);
+          }, 300);
         }
 
       } catch (error) {
@@ -891,7 +898,7 @@
           setTimeout(() => {
             copyKey(true);
             showNotification();
-          }, 500);
+          }, 300);
         }
       }
     }
