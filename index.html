@@ -1,190 +1,595 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PUTZZDEV • KEY GENERATOR</title>
+  
+  <!-- FONTS & ICONS -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<title>KEY GENERATOR | Putzzdev-HUB</title>
+    body {
+      min-height: 100vh;
+      background: #0a0a0f;
+      font-family: 'Space Grotesk', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+    /* CYBER BACKGROUND */
+    .cyber-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: 0;
+      animation: gridMove 20s linear infinite;
+    }
 
-<style>
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
 
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron'}
+    /* GLOW EFFECTS */
+    .glow {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: rgba(0, 255, 255, 0.15);
+      filter: blur(80px);
+      z-index: 1;
+      animation: glowPulse 4s ease-in-out infinite;
+    }
 
-body{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#020617;
-color:#0ff;
-overflow:hidden;
-}
+    .glow-1 { top: -100px; left: -100px; }
+    .glow-2 { bottom: -100px; right: -100px; background: rgba(255, 0, 255, 0.15); animation-delay: -2s; }
 
-/* CARD */
+    @keyframes glowPulse {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.2); }
+    }
 
-.box{
-width:350px;
-padding:30px;
-border-radius:18px;
-background:rgba(10,20,40,.92);
-border:1px solid #00ffff55;
-box-shadow:0 0 25px #00ffff55,inset 0 0 20px #00ffff33;
-text-align:center;
-}
+    /* MAIN CARD */
+    .generator-card {
+      position: relative;
+      z-index: 10;
+      width: 450px;
+      background: rgba(10, 10, 20, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 255, 255, 0.3);
+      border-radius: 30px;
+      padding: 40px;
+      box-shadow: 
+        0 0 50px rgba(0, 255, 255, 0.2),
+        inset 0 0 30px rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
 
-h1{
-font-size:20px;
-margin-bottom:18px;
-color:#00ffff;
-text-shadow:0 0 12px #00ffff;
-}
+    .generator-card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+      border-radius: 32px;
+      z-index: -1;
+      animation: borderRotate 4s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
 
-/* DROPDOWN */
+    .generator-card:hover::before {
+      opacity: 1;
+    }
 
-select{
+    @keyframes borderRotate {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
 
-width:100%;
-padding:14px;
-margin-top:10px;
+    /* HEADER */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-border-radius:12px;
-border:none;
+    .header i {
+      font-size: 48px;
+      color: #00ffff;
+      text-shadow: 0 0 20px #00ffff;
+      margin-bottom: 15px;
+    }
 
-background:#061a35;
-color:#0ff;
+    h1 {
+      font-size: 24px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff, #00ffff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+    }
 
-font-size:15px;
+    .subtitle {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
 
-}
+    /* DROPDOWN STYLE */
+    .select-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
 
-/* BUTTON */
+    .select-wrapper i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00ffff;
+      font-size: 18px;
+      z-index: 1;
+      text-shadow: 0 0 10px #00ffff;
+    }
 
-button{
+    select {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 15px;
+      font-size: 16px;
+      color: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      appearance: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-width:100%;
-padding:14px;
-margin-top:14px;
+    select:hover {
+      border-color: #00ffff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
 
-border:none;
-border-radius:12px;
+    select:focus {
+      outline: none;
+      border-color: #00ffff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
 
-background:linear-gradient(135deg,#00ffff,#0099ff);
-color:#000;
+    select option {
+      background: #0a0a0f;
+      color: #fff;
+    }
 
-font-weight:bold;
-cursor:pointer;
+    .select-wrapper::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00ffff;
+      pointer-events: none;
+      text-shadow: 0 0 10px #00ffff;
+    }
 
-transition:.3s;
+    /* BUTTON STYLE */
+    .btn-primary {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(45deg, #00ffff, #ff00ff);
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
 
-}
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
 
-button:hover{
+    .btn-primary:hover::before {
+      left: 100%;
+    }
 
-transform:scale(1.05);
-box-shadow:0 0 20px #00ffff;
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.4);
+    }
 
-}
+    .btn-primary i {
+      font-size: 18px;
+    }
 
-.copy{
-background:linear-gradient(135deg,#00ffaa,#00ffff);
-}
+    /* INPUT DISPLAY */
+    .key-display {
+      position: relative;
+      margin: 20px 0;
+    }
 
-/* INPUT */
+    .key-display i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00ffff;
+      font-size: 18px;
+      text-shadow: 0 0 10px #00ffff;
+    }
 
-input{
+    input {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 15px;
+      font-size: 14px;
+      color: #00ffff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 1px;
+      box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.2);
+    }
 
-width:100%;
-padding:13px;
-margin-top:15px;
+    input:focus {
+      outline: none;
+    }
 
-border-radius:10px;
-border:none;
+    /* COPY BUTTON */
+    .btn-copy {
+      width: 100%;
+      padding: 15px;
+      background: transparent;
+      border: 2px solid #00ffff;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #00ffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
 
-background:#000;
-color:#0ff;
+    .btn-copy:hover {
+      background: #00ffff;
+      color: #000;
+      box-shadow: 0 0 30px #00ffff;
+    }
 
-text-align:center;
-font-weight:bold;
+    .btn-copy i {
+      font-size: 18px;
+    }
 
-box-shadow:inset 0 0 10px #00ffff55;
+    /* STATUS MESSAGE */
+    .status-msg {
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 14px;
+      display: none;
+    }
 
-}
+    .status-msg.success {
+      display: block;
+      background: rgba(0, 255, 0, 0.1);
+      border: 1px solid #00ff00;
+      color: #00ff00;
+    }
 
-</style>
+    .status-msg.error {
+      display: block;
+      background: rgba(255, 0, 0, 0.1);
+      border: 1px solid #ff0000;
+      color: #ff0000;
+    }
+
+    .status-msg.warning {
+      display: block;
+      background: rgba(255, 255, 0, 0.1);
+      border: 1px solid #ffff00;
+      color: #ffff00;
+    }
+
+    /* KEY INFO */
+    .key-info {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(0, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 10px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+    }
+
+    .key-info i {
+      color: #00ffff;
+      margin-right: 5px;
+    }
+
+    .key-info span {
+      color: #00ffff;
+      font-weight: 600;
+    }
+
+    /* LOADING SPINNER */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #00ffff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 500px) {
+      .generator-card {
+        width: 90%;
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 20px;
+      }
+      
+      .header i {
+        font-size: 40px;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="box">
+  <!-- BACKGROUND EFFECTS -->
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="cyber-grid"></div>
 
-<h1>🔑 KEY GENERATOR<br>Putzzdev-HUB</h1>
+  <!-- MAIN CARD -->
+  <div class="generator-card">
+    
+    <!-- HEADER -->
+    <div class="header">
+      <i class="fas fa-key"></i>
+      <h1>KEY GENERATOR</h1>
+      <div class="subtitle">PUTZZDEV SECURE SYSTEM</div>
+    </div>
 
-<select id="daySelect">
-<option value="1">1 DAY</option>
-<option value="2">2 DAY</option>
-<option value="3">3 DAY</option>
-<option value="7">7 DAY</option>
-<option value="30">30 DAY</option>
-</select>
+    <!-- DURATION SELECT -->
+    <div class="select-wrapper">
+      <i class="fas fa-calendar-alt"></i>
+      <select id="daySelect">
+        <option value="1">🗓️ 1 DAY ACCESS</option>
+        <option value="2">🗓️ 2 DAY ACCESS</option>
+        <option value="3">🗓️ 3 DAY ACCESS</option>
+        <option value="7">🗓️ 7 DAY ACCESS</option>
+        <option value="30">🗓️ 30 DAY ACCESS</option>
+      </select>
+    </div>
 
-<button onclick="ambilKey()">AMBIL KEY</button>
+    <!-- GENERATE BUTTON -->
+    <button class="btn-primary" onclick="ambilKey()">
+      <i class="fas fa-magic"></i>
+      GENERATE KEY
+    </button>
 
-<input id="hasilKey" placeholder="KEY AKAN MUNCUL" readonly>
+    <!-- KEY DISPLAY -->
+    <div class="key-display">
+      <i class="fas fa-id-card"></i>
+      <input type="text" id="hasilKey" placeholder="KEY AKAN MUNCUL DISINI" readonly>
+    </div>
 
-<button class="copy" onclick="copyKey()">COPY KEY</button>
+    <!-- COPY BUTTON -->
+    <button class="btn-copy" onclick="copyKey()">
+      <i class="fas fa-copy"></i>
+      COPY KEY
+    </button>
 
-</div>
+    <!-- STATUS MESSAGE -->
+    <div id="statusMsg" class="status-msg"></div>
 
-<script>
+    <!-- KEY INFO -->
+    <div class="key-info">
+      <i class="fas fa-shield-alt"></i> 
+      KEY TERSEDIA: <span>1, 2, 3, 7, 30 HARI</span><br>
+      <i class="fas fa-exclamation-triangle"></i> 
+      KEY HANYA BISA DIGUNAKAN 1 KALI
+    </div>
+  </div>
 
-const KEY_URL="https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/refs/heads/main/key.json";
+  <script>
+    const KEY_URL = "https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/main/key.json";
+    let generatedKey = '';
 
-async function ambilKey(){
+    async function ambilKey() {
+      const day = document.getElementById("daySelect").value;
+      const output = document.getElementById("hasilKey");
+      const statusMsg = document.getElementById("statusMsg");
+      const generateBtn = event.target;
 
-const day=document.getElementById("daySelect").value;
-const output=document.getElementById("hasilKey");
+      // Reset status
+      statusMsg.className = 'status-msg';
+      
+      // Show loading on button
+      const originalText = generateBtn.innerHTML;
+      generateBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> MEMPROSES...';
+      generateBtn.disabled = true;
 
-output.value="Mengambil key...";
+      try {
+        const res = await fetch(KEY_URL);
+        
+        if (!res.ok) {
+          throw new Error('Network response was not ok');
+        }
+        
+        const data = await res.json();
+        
+        // Cari key berdasarkan days
+        const item = data.duration_keys.find(k => k.days == day);
+        
+        if (!item || item.key === "TIDAK TERSEDIA") {
+          output.value = "🔴 KEY TIDAK TERSEDIA";
+          output.style.color = "#ff4444";
+          generatedKey = '';
+          
+          statusMsg.className = 'status-msg error';
+          statusMsg.innerHTML = '<i class="fas fa-times-circle"></i> Maaf, key untuk ' + day + ' hari sedang tidak tersedia';
+          return;
+        }
 
-try{
+        // Key ditemukan
+        output.value = item.key;
+        output.style.color = "#00ffff";
+        generatedKey = item.key;
+        
+        statusMsg.className = 'status-msg success';
+        statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil digenerate!';
+        
+        // Auto copy after generate
+        setTimeout(() => {
+          copyKey(true);
+        }, 500);
 
-const res=await fetch(KEY_URL);
-const data=await res.json();
+      } catch (error) {
+        console.error('Error:', error);
+        output.value = "🔴 GAGAL MENGAMBIL KEY";
+        output.style.color = "#ff4444";
+        generatedKey = '';
+        
+        statusMsg.className = 'status-msg error';
+        statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke server';
+      } finally {
+        // Restore button
+        generateBtn.innerHTML = originalText;
+        generateBtn.disabled = false;
+      }
+    }
 
-const item=data.duration_keys.find(k=>k.days==day);
+    function copyKey(silent = false) {
+      const output = document.getElementById("hasilKey");
+      const statusMsg = document.getElementById("statusMsg");
+      
+      if (!output.value || output.value.includes("TIDAK") || output.value.includes("GAGAL")) {
+        if (!silent) {
+          statusMsg.className = 'status-msg warning';
+          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key untuk disalin';
+        }
+        return;
+      }
 
-if(!item){
+      // Copy to clipboard
+      output.select();
+      output.setSelectionRange(0, 99999); // For mobile
+      
+      try {
+        // Modern approach
+        navigator.clipboard.writeText(output.value).then(() => {
+          statusMsg.className = 'status-msg success';
+          statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin ke clipboard!';
+          
+          // Visual feedback on copy button
+          const copyBtn = document.querySelector('.btn-copy');
+          copyBtn.style.background = '#00ffff';
+          copyBtn.style.color = '#000';
+          setTimeout(() => {
+            copyBtn.style.background = '';
+            copyBtn.style.color = '';
+          }, 500);
+        }).catch(err => {
+          // Fallback
+          document.execCommand("copy");
+          statusMsg.className = 'status-msg success';
+          statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
+        });
+      } catch (err) {
+        // Fallback for older browsers
+        document.execCommand("copy");
+        statusMsg.className = 'status-msg success';
+        statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
+      }
 
-output.value="Key tidak tersedia";
-return;
+      // Auto hide status after 3 seconds
+      setTimeout(() => {
+        statusMsg.className = 'status-msg';
+      }, 3000);
+    }
 
-}
+    // Enter key support on select
+    document.getElementById('daySelect').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        ambilKey();
+      }
+    });
 
-output.value=item.key;
-
-}catch{
-
-output.value="Gagal mengambil key";
-
-}
-
-}
-
-function copyKey(){
-
-const input=document.getElementById("hasilKey");
-
-if(!input.value)return;
-
-input.select();
-document.execCommand("copy");
-
-alert("Key berhasil disalin");
-
-}
-
-</script>
-
+    // Auto refresh keys setiap 5 menit (optional)
+    setInterval(() => {
+      console.log('Refreshing key connection...');
+      fetch(KEY_URL)
+        .then(res => res.json())
+        .then(data => {
+          console.log('Keys refreshed:', data.duration_keys.length);
+        })
+        .catch(err => console.log('Refresh failed'));
+    }, 300000); // 5 minutes
+  </script>
 </body>
 </html>
