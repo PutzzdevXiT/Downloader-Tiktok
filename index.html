@@ -401,6 +401,11 @@
       color: #fff;
     }
 
+    .badge-hour {
+      background: #ffaa00;
+      color: #000;
+    }
+
     /* NOTIFICATION */
     .copy-notification {
       position: fixed;
@@ -462,13 +467,13 @@
     <div class="select-wrapper">
       <i class="fas fa-calendar-alt"></i>
       <select id="daySelect">
-        <option value="1">⚡ 1 DAY ACCESS <span style="color:#00ff00">(FREE)</span></option>
-        <option value="hour">⏰ 1 JAM ACCESS <span style="color:#00ff00">(FREE)</span></option>
-        <option value="2">🔒 2 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="3">🔒 3 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="7">🔒 7 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="30">🔒 30 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="permanent">∞ PERMANENT ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="1">⚡ 1 DAY ACCESS</option>
+        <option value="hour">⏰ 1 JAM ACCESS</option>
+        <option value="2">🔒 2 DAY ACCESS</option>
+        <option value="3">🔒 3 DAY ACCESS</option>
+        <option value="7">🔒 7 DAY ACCESS</option>
+        <option value="30">🔒 30 DAY ACCESS</option>
+        <option value="permanent">∞ PERMANENT ACCESS</option>
       </select>
     </div>
 
@@ -490,7 +495,7 @@
     <div class="key-info">
       <i class="fas fa-shield-alt"></i> 
       KEY TERSEDIA: <br>
-      <span>1D <span class="key-badge badge-free">FREE</span>, 1J <span class="key-badge badge-free">FREE</span>, 2D <span class="key-badge badge-protected">PROTECTED</span>, 3D <span class="key-badge badge-protected">PROTECTED</span>, 7D <span class="key-badge badge-protected">PROTECTED</span>, 30D <span class="key-badge badge-protected">PROTECTED</span>, ∞ <span class="key-badge badge-permanent">PROTECTED</span></span>
+      <span>1D, 1J, 2D, 3D, 7D, 30D, PERMANEN</span>
     </div>
   </div>
 
@@ -519,12 +524,12 @@
         let item = null;
         
         if (days === "hour") {
-          // Untuk 1 jam, kita generate random
-          item = { key: "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase() };
+          // Cari key 1 jam di JSON (days: "0.04167" atau type: "hour")
+          item = keyCache.duration_keys.find(k => k.days === "0.04167" || k.type === "hour");
+          console.log("Mencari key 1 jam di JSON:", item);
         } else if (days === "permanent") {
           // Cari key permanent
           item = keyCache.duration_keys.find(k => k.days === "permanent" || k.type === "permanent");
-          if (!item) item = { key: "PUTZZDEV-PERMANENT-9999" };
         } else {
           // Cari berdasarkan days (1,2,3,7,30)
           item = keyCache.duration_keys.find(k => k.days == days);
@@ -550,9 +555,9 @@
       const select = document.getElementById("daySelect");
       const days = select.value;
       
-      if (days === "1" || days === "hour") {
-        ambilKey(days);
-      } else {
+      // Cek apakah key butuh password
+      if (days === "2" || days === "3" || days === "7" || days === "30" || days === "permanent") {
+        // PROTECTED keys - minta password dulu
         pendingDays = days;
         
         let keyTypeText = '';
@@ -571,6 +576,9 @@
         }, 300);
         document.getElementById('passwordInput').value = '';
         document.getElementById('passwordMsg').innerHTML = '';
+      } else {
+        // FREE keys (1D & 1 Jam) - langsung generate
+        ambilKey(days, false);
       }
     }
 
@@ -623,15 +631,12 @@
           keyValue = item.key;
           console.log(`Menggunakan key dari JSON: ${keyValue}`);
         } else {
-          // Fallback: generate random key
-          if (days === "permanent") {
-            keyValue = "PUTZZDEV-PERMANENT-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-          } else if (days === "hour") {
-            keyValue = "PUTZZDEV-1HOUR-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-          } else {
-            keyValue = "PUTZZDEV-" + days + "D-" + Math.random().toString(36).substring(2, 10).toUpperCase();
-          }
-          console.log(`Key tidak ditemukan di JSON, generate random: ${keyValue}`);
+          // Key tidak tersedia di JSON
+          output.value = "KEY TIDAK TERSEDIA";
+          output.style.color = "#ff4444";
+          statusMsg.className = 'status-msg error';
+          statusMsg.innerHTML = '<i class="fas fa-times-circle"></i> Key tidak tersedia di server';
+          return;
         }
 
         // Tampilkan key
@@ -657,29 +662,11 @@
       } catch (error) {
         console.error('Error:', error);
         
-        // Fallback error
-        let fallbackKey = '';
-        if (days === "permanent") {
-          fallbackKey = "PUTZZDEV-PERMANENT-9999";
-        } else if (days === "hour") {
-          fallbackKey = "PUTZZDEV-1HOUR-TRIAL";
-        } else {
-          fallbackKey = "PUTZZDEV-" + days + "D-DEFAULT";
-        }
-        
-        output.value = fallbackKey;
-        output.style.color = "#00ffff";
-        generatedKey = fallbackKey;
-        
-        statusMsg.className = 'status-msg info';
-        statusMsg.innerHTML = '<i class="fas fa-info-circle"></i> Menggunakan key default';
-        
-        if (autoCopy) {
-          setTimeout(() => {
-            copyKey(true);
-            showNotification();
-          }, 300);
-        }
+        // Error - key tidak bisa diambil
+        output.value = "GAGAL MENGAMBIL KEY";
+        output.style.color = "#ff4444";
+        statusMsg.className = 'status-msg error';
+        statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke server';
       }
     }
 
@@ -687,10 +674,10 @@
       const output = document.getElementById("hasilKey");
       const statusMsg = document.getElementById("statusMsg");
       
-      if (!output.value || output.value.includes("MENGAMBIL KEY")) {
+      if (!output.value || output.value.includes("MENGAMBIL KEY") || output.value.includes("TIDAK TERSEDIA") || output.value.includes("GAGAL")) {
         if (!silent) {
           statusMsg.className = 'status-msg warning';
-          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key';
+          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key valid untuk disalin';
         }
         return;
       }
