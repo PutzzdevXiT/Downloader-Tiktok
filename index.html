@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PUTZZDEV • KEY GENERATOR PRO</title>
+  <title>Putzz-HUB KEY GENERATOR</title>
   
   <!-- FONTS & ICONS -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -72,7 +72,7 @@
     .generator-card {
       position: relative;
       z-index: 10;
-      width: 500px;
+      width: 550px;
       background: rgba(10, 10, 20, 0.9);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 255, 255, 0.3);
@@ -165,8 +165,7 @@
       border-radius: 25px;
       padding: 35px;
       text-align: center;
-      box-shadow: 0 0 60px #00ffff,
-                  inset 0 0 30px rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 60px #00ffff;
       animation: modalPop 0.4s ease;
     }
 
@@ -273,6 +272,43 @@
       color: #00ffff;
     }
 
+    /* INPUT KEY MANUAL */
+    .input-key-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-key-wrapper i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00ffff;
+      font-size: 18px;
+      z-index: 1;
+    }
+
+    #manualKeyInput {
+      width: 100%;
+      padding: 15px 20px 15px 50px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 15px;
+      font-size: 16px;
+      color: #00ffff;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    #manualKeyInput:focus {
+      outline: none;
+      border-color: #00ffff;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+    }
+
+    #manualKeyInput::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+
     /* BUTTON STYLE */
     .btn-primary {
       width: 100%;
@@ -310,7 +346,7 @@
       color: #00ffff;
     }
 
-    input {
+    #hasilKey {
       width: 100%;
       padding: 15px 20px 15px 50px;
       background: rgba(0, 0, 0, 0.7);
@@ -336,6 +372,7 @@
       align-items: center;
       justify-content: center;
       gap: 10px;
+      margin-bottom: 20px;
     }
 
     .btn-copy:hover {
@@ -365,6 +402,13 @@
       background: rgba(255, 0, 0, 0.1);
       border: 1px solid #ff0000;
       color: #ff0000;
+    }
+
+    .status-msg.info {
+      display: block;
+      background: rgba(0, 255, 255, 0.1);
+      border: 1px solid #00ffff;
+      color: #00ffff;
     }
 
     /* KEY INFO */
@@ -420,11 +464,48 @@
       z-index: 10002;
       display: none;
       animation: slideUp 0.3s ease;
+      box-shadow: 0 0 30px #00ffff;
     }
 
     @keyframes slideUp {
       0% { bottom: 0; opacity: 0; }
       100% { bottom: 30px; opacity: 1; }
+    }
+
+    /* SAVING NOTIFICATION */
+    .saving-notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #00ffff;
+      color: #000;
+      padding: 15px 25px;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+      display: none;
+      align-items: center;
+      gap: 10px;
+      z-index: 2000;
+      animation: slideIn 0.3s ease;
+      font-weight: bold;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .generator-card {
+        width: 90%;
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
@@ -434,6 +515,12 @@
   <div class="glow glow-1"></div>
   <div class="glow glow-2"></div>
   <div class="cyber-grid"></div>
+
+  <!-- SAVING NOTIFICATION -->
+  <div class="saving-notification" id="savingNotification">
+    <i class="fas fa-database"></i>
+    <span>Menyimpan key ke DATABASE...</span>
+  </div>
 
   <!-- PASSWORD MODAL -->
   <div class="modal-overlay" id="passwordModal" onclick="closePasswordModal()">
@@ -460,105 +547,165 @@
     
     <div class="header">
       <i class="fas fa-key"></i>
-      <h1>KEY GENERATOR PRO</h1>
+      <h1>KEY GENERATOR FIREBASE</h1>
       <div class="subtitle">PUTZZDEV SECURE SYSTEM</div>
     </div>
 
+    <!-- DROPDOWN JENIS KEY -->
     <div class="select-wrapper">
       <i class="fas fa-calendar-alt"></i>
       <select id="daySelect">
-        <option value="1">⚡ 1 DAY ACCESS</option>
-        <option value="hour">⏰ 1 JAM ACCESS</option>
-        <option value="2">🔒 2 DAY ACCESS</option>
-        <option value="3">🔒 3 DAY ACCESS</option>
-        <option value="7">🔒 7 DAY ACCESS</option>
-        <option value="30">🔒 30 DAY ACCESS</option>
-        <option value="permanent">∞ PERMANENT ACCESS</option>
+        <option value="1">⚡ 1 DAY ACCESS <span style="color:#00ff00">(FREE)</span></option>
+        <option value="hour">⏰ 1 JAM ACCESS <span style="color:#00ff00">(FREE)</span></option>
+        <option value="2">🔒 2 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="3">🔒 3 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="7">🔒 7 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="30">🔒 30 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="permanent">∞ PERMANENT ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
       </select>
     </div>
 
-    <button class="btn-primary" onclick="handleGenerate()">
-      <i class="fas fa-magic"></i> GENERATE KEY
+    <!-- INPUT KEY MANUAL -->
+    <div class="input-key-wrapper">
+      <i class="fas fa-pencil-alt"></i>
+      <input type="text" id="manualKeyInput" placeholder="KETIK KEY KAMU DI SINI..." value="">
+    </div>
+
+    <!-- SIMPAN KEY BUTTON -->
+    <button class="btn-primary" onclick="handleSaveKey()">
+      <i class="fas fa-save"></i> SIMPAN KEY KE DATABASE
     </button>
 
+    <!-- KEY DISPLAY -->
     <div class="key-display">
       <i class="fas fa-id-card"></i>
       <input type="text" id="hasilKey" placeholder="KEY AKAN MUNCUL DISINI" readonly>
     </div>
 
+    <!-- COPY BUTTON -->
     <button class="btn-copy" onclick="copyKey()">
       <i class="fas fa-copy"></i> COPY KEY
     </button>
 
+    <!-- STATUS MESSAGE -->
     <div id="statusMsg" class="status-msg"></div>
 
+    <!-- KEY INFO -->
     <div class="key-info">
-      <i class="fas fa-shield-alt"></i> 
-      KEY TERSEDIA: <br>
-      <span>1D, 1J, 2D, 3D, 7D, 30D, PERMANEN</span>
+      <i class="fas fa-database"></i> 
+      KEY TERSIMPAN DI DATABASE: <br>
+      <span id="keyCount">0</span> key telah tersimpan
     </div>
   </div>
 
+  <!-- FIREBASE SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
   <script>
-    const KEY_URL = "https://raw.githubusercontent.com/PutzzdevXiT/sefelink-by-putzz/main/key.json";
     const PASSWORD = "Putzzdev";
+    
+    // 🔥 FIREBASE CONFIG - SUDAH DIPERBAIKI UNTUK REGION EUROPE-WEST1!
+    const firebaseConfig = {
+      apiKey: "AIzaSyB3WWClZiZ890Wf9zaYwcOGfKOl8OjPuU8",
+      authDomain: "keyweb-f8e96.firebaseapp.com",
+      databaseURL: "https://keyweb-f8e96-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "keyweb-f8e96",
+      storageBucket: "keyweb-f8e96.firebasestorage.app",
+      messagingSenderId: "255752835945",
+      appId: "1:255752835945:web:bd95a38875d563241263f8"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
     let generatedKey = '';
     let pendingDays = null;
+    let pendingKey = '';
+    let allKeys = [];
 
-    // Cache untuk menyimpan key dari JSON
-    let keyCache = null;
-
-    // Fungsi untuk mengambil key dari JSON
-    async function getKeyFromJSON(days) {
+    // Load keys from Firebase
+    async function loadKeysFromFirebase() {
       try {
-        // Kalau belum ada cache, ambil dulu
-        if (!keyCache) {
-          console.log("Mengambil data dari JSON...");
-          const res = await fetch(KEY_URL);
-          if (!res.ok) throw new Error('Gagal mengambil data');
-          keyCache = await res.json();
-          console.log("Data JSON:", keyCache);
-        }
-
-        // Cari key berdasarkan days
-        let item = null;
+        const snapshot = await database.ref('keys').once('value');
+        const data = snapshot.val();
         
-        if (days === "hour") {
-          // Cari key 1 jam di JSON (days: "0.04167" atau type: "hour")
-          item = keyCache.duration_keys.find(k => k.days === "0.04167" || k.type === "hour");
-          console.log("Mencari key 1 jam di JSON:", item);
-        } else if (days === "permanent") {
-          // Cari key permanent
-          item = keyCache.duration_keys.find(k => k.days === "permanent" || k.type === "permanent");
+        if (data) {
+          // Convert object ke array
+          allKeys = Object.values(data);
+          console.log('Keys loaded:', allKeys.length);
         } else {
-          // Cari berdasarkan days (1,2,3,7,30)
-          item = keyCache.duration_keys.find(k => k.days == days);
-          console.log(`Mencari key untuk ${days} hari:`, item);
+          allKeys = [];
         }
-
-        return item;
       } catch (error) {
-        console.error("Error mengambil JSON:", error);
-        return null;
+        console.error('Error loading from Firebase:', error);
+        allKeys = [];
+      }
+      
+      updateKeyCount();
+    }
+
+    function updateKeyCount() {
+      document.getElementById('keyCount').innerHTML = allKeys.length;
+    }
+
+    // Simpan key ke Firebase
+    async function saveKeyToFirebase(keyData) {
+      const notif = document.getElementById('savingNotification');
+      notif.style.display = 'flex';
+      notif.querySelector('span').innerHTML = 'Menyimpan key ke DATABASE...';
+      
+      try {
+        // Generate ID unik
+        const newKey = database.ref().child('keys').push().key;
+        
+        // Simpan data ke path /keys/[unique-id]
+        await database.ref('keys/' + newKey).set(keyData);
+        
+        // Update local array
+        allKeys.push(keyData);
+        
+        notif.querySelector('span').innerHTML = 'Key tersimpan di DATABASE!';
+        notif.style.background = '#00ffff';
+        notif.style.color = '#000';
+        
+        updateKeyCount();
+        
+        setTimeout(() => {
+          notif.style.display = 'none';
+        }, 3000);
+        
+        return true;
+        
+      } catch (error) {
+        console.error('Error Firebase:', error);
+        notif.querySelector('span').innerHTML = 'Gagal menyimpan!';
+        notif.style.background = '#ff4444';
+        notif.style.color = '#fff';
+        
+        setTimeout(() => {
+          notif.style.display = 'none';
+        }, 3000);
+        
+        return false;
       }
     }
 
-    function showNotification() {
-      const notif = document.getElementById('copyNotification');
-      notif.style.display = 'block';
-      setTimeout(() => {
-        notif.style.display = 'none';
-      }, 2000);
-    }
-
-    function handleGenerate() {
+    // Handle save key
+    function handleSaveKey() {
       const select = document.getElementById("daySelect");
       const days = select.value;
+      const manualKey = document.getElementById("manualKeyInput").value.trim();
       
-      // Cek apakah key butuh password
+      if (manualKey === '') {
+        alert('Key tidak boleh kosong!');
+        return;
+      }
+      
       if (days === "2" || days === "3" || days === "7" || days === "30" || days === "permanent") {
-        // PROTECTED keys - minta password dulu
         pendingDays = days;
+        pendingKey = manualKey;
         
         let keyTypeText = '';
         switch(days) {
@@ -577,14 +724,57 @@
         document.getElementById('passwordInput').value = '';
         document.getElementById('passwordMsg').innerHTML = '';
       } else {
-        // FREE keys (1D & 1 Jam) - langsung generate
-        ambilKey(days, false);
+        saveKeyToDatabase(days, manualKey);
+      }
+    }
+
+    async function saveKeyToDatabase(days, keyValue) {
+      let jenisKey = '';
+      switch(days) {
+        case '1': jenisKey = '1 HARI'; break;
+        case 'hour': jenisKey = '1 JAM'; break;
+        case '2': jenisKey = '2 HARI'; break;
+        case '3': jenisKey = '3 HARI'; break;
+        case '7': jenisKey = '7 HARI'; break;
+        case '30': jenisKey = '30 HARI'; break;
+        case 'permanent': jenisKey = 'PERMANEN'; break;
+      }
+      
+      const today = new Date();
+      const tanggal = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth() + 1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+      const jam = `${today.getHours().toString().padStart(2, '0')}:${today.getMinutes().toString().padStart(2, '0')}`;
+      
+      const keyData = {
+        key: keyValue,
+        jenis: jenisKey,
+        tanggal_dibuat: tanggal,
+        jam_dibuat: jam,
+        status: "aktif"
+      };
+      
+      const berhasil = await saveKeyToFirebase(keyData);
+      
+      if (berhasil) {
+        document.getElementById('hasilKey').value = keyValue;
+        generatedKey = keyValue;
+        
+        document.getElementById('manualKeyInput').value = '';
+        
+        const statusMsg = document.getElementById('statusMsg');
+        statusMsg.className = 'status-msg success';
+        statusMsg.innerHTML = `<i class="fas fa-check-circle"></i> Key ${jenisKey} berhasil disimpan!`;
+        
+        setTimeout(() => {
+          copyKey(true);
+          showNotification();
+        }, 500);
       }
     }
 
     function closePasswordModal() {
       document.getElementById('passwordModal').classList.remove('active');
       pendingDays = null;
+      pendingKey = '';
     }
 
     function checkPassword() {
@@ -595,9 +785,10 @@
         msg.style.color = '#00ff00';
         msg.innerHTML = '<i class="fas fa-check-circle"></i> Password benar!';
         
-        if (pendingDays) {
-          ambilKey(pendingDays, true);
+        if (pendingDays && pendingKey) {
+          saveKeyToDatabase(pendingDays, pendingKey);
           pendingDays = null;
+          pendingKey = '';
         }
         
         setTimeout(() => {
@@ -612,72 +803,22 @@
       }
     }
 
-    async function ambilKey(days, autoCopy = false) {
-      const output = document.getElementById("hasilKey");
-      const statusMsg = document.getElementById("statusMsg");
-      
-      statusMsg.className = 'status-msg';
-      output.value = "MENGAMBIL KEY...";
-      output.style.color = "#ffff00";
-
-      try {
-        // Ambil key dari JSON
-        const item = await getKeyFromJSON(days);
-        
-        let keyValue = '';
-        
-        if (item && item.key && item.key !== "TIDAK TERSEDIA") {
-          // Gunakan key dari JSON
-          keyValue = item.key;
-          console.log(`Menggunakan key dari JSON: ${keyValue}`);
-        } else {
-          // Key tidak tersedia di JSON
-          output.value = "KEY TIDAK TERSEDIA";
-          output.style.color = "#ff4444";
-          statusMsg.className = 'status-msg error';
-          statusMsg.innerHTML = '<i class="fas fa-times-circle"></i> Key tidak tersedia di server';
-          return;
-        }
-
-        // Tampilkan key
-        output.value = keyValue;
-        output.style.color = "#00ffff";
-        generatedKey = keyValue;
-        
-        // Tampilkan pesan sukses
-        let typeInfo = '';
-        if (days === "permanent") typeInfo = 'PERMANEN';
-        else if (days === "hour") typeInfo = '1 JAM';
-        else typeInfo = days + ' HARI';
-        
-        statusMsg.className = 'status-msg success';
-        statusMsg.innerHTML = `<i class="fas fa-check-circle"></i> Key ${typeInfo} berhasil digenerate!`;
-        
-        // Auto copy
-        setTimeout(() => {
-          copyKey(true);
-          if (autoCopy) showNotification();
-        }, 300);
-
-      } catch (error) {
-        console.error('Error:', error);
-        
-        // Error - key tidak bisa diambil
-        output.value = "GAGAL MENGAMBIL KEY";
-        output.style.color = "#ff4444";
-        statusMsg.className = 'status-msg error';
-        statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Gagal terhubung ke server';
-      }
+    function showNotification() {
+      const notif = document.getElementById('copyNotification');
+      notif.style.display = 'block';
+      setTimeout(() => {
+        notif.style.display = 'none';
+      }, 2000);
     }
 
     function copyKey(silent = false) {
       const output = document.getElementById("hasilKey");
       const statusMsg = document.getElementById("statusMsg");
       
-      if (!output.value || output.value.includes("MENGAMBIL KEY") || output.value.includes("TIDAK TERSEDIA") || output.value.includes("GAGAL")) {
+      if (!output.value) {
         if (!silent) {
           statusMsg.className = 'status-msg warning';
-          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key valid untuk disalin';
+          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key';
         }
         return;
       }
@@ -699,7 +840,11 @@
       }
     }
 
-    // Event listeners
+    // Load keys saat halaman dimuat
+    window.addEventListener('load', () => {
+      loadKeysFromFirebase();
+    });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && document.getElementById('passwordModal').classList.contains('active')) {
         closePasswordModal();
