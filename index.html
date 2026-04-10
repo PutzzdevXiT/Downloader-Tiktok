@@ -6,7 +6,6 @@
   
   <title>Drip Client KEY | by Putzzdev</title>
   
-  
   <!-- FONTS & ICONS -->
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -231,7 +230,7 @@
       color: #ff4444;
     }
 
-    /* SUCCESS MODAL - NOTIFIKASI BESAR */
+    /* SUCCESS MODAL */
     .success-modal-overlay {
       position: fixed;
       top: 0;
@@ -520,29 +519,6 @@
       font-weight: 600;
     }
 
-    .key-badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 5px;
-      font-size: 10px;
-      margin-left: 5px;
-    }
-
-    .badge-free {
-      background: #00ff00;
-      color: #000;
-    }
-
-    .badge-protected {
-      background: #ff00ff;
-      color: #fff;
-    }
-
-    .badge-hour {
-      background: #ffaa00;
-      color: #000;
-    }
-
     /* NOTIFICATION */
     .copy-notification {
       position: fixed;
@@ -634,7 +610,7 @@
     </div>
   </div>
 
-  <!-- SUCCESS MODAL - NOTIFIKASI BESAR -->
+  <!-- SUCCESS MODAL -->
   <div class="success-modal-overlay" id="successModal" onclick="closeSuccessModal()">
     <div class="success-modal-box" onclick="event.stopPropagation()">
       <i class="fas fa-check-circle"></i>
@@ -658,20 +634,20 @@
     <div class="header">
       <i class="fas fa-key"></i>
       <h1>Drip Client KEY</h1>
-      <div class="subtitle">DATABASE by Putzzdev</div>
+      <div class="subtitle">GENERATOR by Putzzdev</div>
     </div>
 
     <!-- DROPDOWN JENIS KEY -->
     <div class="select-wrapper">
       <i class="fas fa-calendar-alt"></i>
       <select id="daySelect">
-        <option value="1">⚡ 1 DAY ACCESS <span style="color:#00ff00">(FREE)</span></option>
-        <option value="hour">⏰ 1 JAM ACCESS <span style="color:#00ff00">(FREE)</span></option>
-        <option value="2">🔒 2 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="3">🔒 3 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="7">🔒 7 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="30">🔒 30 DAY ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
-        <option value="permanent">∞ PERMANENT ACCESS <span style="color:#ff00ff">(PROTECTED)</span></option>
+        <option value="hour">⏰ 1 JAM ACCESS (FREE)</option>
+        <option value="1">⚡ 1 HARI ACCESS (FREE)</option>
+        <option value="2">🔒 2 HARI ACCESS (PROTECTED)</option>
+        <option value="3">🔒 3 HARI ACCESS (PROTECTED)</option>
+        <option value="7">🔒 7 HARI ACCESS (PROTECTED)</option>
+        <option value="30">🔒 30 HARI ACCESS (PROTECTED)</option>
+        <option value="permanent">∞ PERMANENT ACCESS (PROTECTED)</option>
       </select>
     </div>
 
@@ -715,18 +691,18 @@
   <script>
     const PASSWORD = "Putzzdev";
     
-    // 🔥 FIREBASE CONFIG - PAKAI YANG KAMU PUNYA!
+    // 🔥 FIREBASE CONFIG
     const firebaseConfig = {
-  apiKey: "AIzaSyDKzgOyYkGg0Guo4JYfsR-lXsRhgH32GqQ",
-  authDomain: "putzz-key.firebaseapp.com",
-  projectId: "putzz-key",
-  storageBucket: "putzz-key.firebasestorage.app",
-  messagingSenderId: "956234038203",
-  appId: "1:956234038203:web:c6eddf2b3a724ff1ca629e"
-};
+      apiKey: "AIzaSyDKzgOyYkGg0Guo4JYfsR-lXsRhgH32GqQ",
+      authDomain: "putzz-key.firebaseapp.com",
+      projectId: "putzz-key",
+      storageBucket: "putzz-key.firebasestorage.app",
+      messagingSenderId: "956234038203",
+      appId: "1:956234038203:web:c6eddf2b3a724ff1ca629e"
+    };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
     const database = firebase.database();
 
     let generatedKey = '';
@@ -741,7 +717,6 @@ const app = initializeApp(firebaseConfig);
         const data = snapshot.val();
         
         if (data) {
-          // Convert object ke array
           allKeys = Object.values(data);
           console.log('Keys loaded:', allKeys.length);
         } else {
@@ -766,16 +741,12 @@ const app = initializeApp(firebaseConfig);
       notif.querySelector('span').innerHTML = 'Menyimpan key ke DATABASE...';
       
       try {
-        // Generate ID unik
-        const newKey = database.ref().child('keys').push().key;
+        const newKeyRef = database.ref().child('keys').push();
+        await newKeyRef.set(keyData);
         
-        // Simpan data ke path /keys/[unique-id]
-        await database.ref('keys/' + newKey).set(keyData);
-        
-        // Update local array
         allKeys.push(keyData);
         
-        notif.querySelector('span').innerHTML = 'Key tersimpan di DATABASE!';
+        notif.querySelector('span').innerHTML = '✅ Key tersimpan di DATABASE!';
         notif.style.background = '#00ffff';
         notif.style.color = '#000';
         
@@ -789,7 +760,7 @@ const app = initializeApp(firebaseConfig);
         
       } catch (error) {
         console.error('Error Firebase:', error);
-        notif.querySelector('span').innerHTML = 'Gagal menyimpan!';
+        notif.querySelector('span').innerHTML = '❌ Gagal menyimpan!';
         notif.style.background = '#ff4444';
         notif.style.color = '#fff';
         
@@ -808,20 +779,21 @@ const app = initializeApp(firebaseConfig);
       const manualKey = document.getElementById("manualKeyInput").value.trim();
       
       if (manualKey === '') {
-        alert('Key tidak boleh kosong!');
+        alert('⚠️ Key tidak boleh kosong!');
         return;
       }
       
+      // Protected keys (2 hari, 3 hari, 7 hari, 30 hari, permanent)
       if (days === "2" || days === "3" || days === "7" || days === "30" || days === "permanent") {
         pendingDays = days;
         pendingKey = manualKey;
         
         let keyTypeText = '';
         switch(days) {
-          case '2': keyTypeText = '🔒 2 DAY KEY'; break;
-          case '3': keyTypeText = '🔒 3 DAY KEY'; break;
-          case '7': keyTypeText = '🔒 7 DAY KEY'; break;
-          case '30': keyTypeText = '🔒 30 DAY KEY'; break;
+          case '2': keyTypeText = '🔒 2 HARI KEY'; break;
+          case '3': keyTypeText = '🔒 3 HARI KEY'; break;
+          case '7': keyTypeText = '🔒 7 HARI KEY'; break;
+          case '30': keyTypeText = '🔒 30 HARI KEY'; break;
           case 'permanent': keyTypeText = '∞ PERMANENT KEY'; break;
         }
         
@@ -833,11 +805,11 @@ const app = initializeApp(firebaseConfig);
         document.getElementById('passwordInput').value = '';
         document.getElementById('passwordMsg').innerHTML = '';
       } else {
+        // Free keys (1 jam, 1 hari) - langsung simpan
         saveKeyToDatabase(days, manualKey);
       }
     }
 
-    // Fungsi untuk mendapatkan detail berdasarkan jenis key
     function getKeyDetails(jenisKey) {
       switch(jenisKey) {
         case '1 JAM':
@@ -859,7 +831,6 @@ const app = initializeApp(firebaseConfig);
       }
     }
 
-    // Tampilkan modal sukses
     function showSuccessModal(jenisKey, keyValue) {
       const details = getKeyDetails(jenisKey);
       
@@ -869,7 +840,6 @@ const app = initializeApp(firebaseConfig);
         <span>${details.icon} ${jenisKey}</span> • Masa berlaku: ${details.duration}
       `;
       
-      // Warna border sesuai jenis key
       const modal = document.querySelector('.success-modal-box');
       modal.style.borderColor = details.color;
       modal.style.boxShadow = `0 0 80px ${details.color}`;
@@ -884,13 +854,14 @@ const app = initializeApp(firebaseConfig);
     async function saveKeyToDatabase(days, keyValue) {
       let jenisKey = '';
       switch(days) {
-        case '1': jenisKey = '1 HARI'; break;
         case 'hour': jenisKey = '1 JAM'; break;
+        case '1': jenisKey = '1 HARI'; break;
         case '2': jenisKey = '2 HARI'; break;
         case '3': jenisKey = '3 HARI'; break;
         case '7': jenisKey = '7 HARI'; break;
         case '30': jenisKey = '30 HARI'; break;
         case 'permanent': jenisKey = 'PERMANEN'; break;
+        default: jenisKey = '1 HARI';
       }
       
       const today = new Date();
@@ -910,13 +881,10 @@ const app = initializeApp(firebaseConfig);
       if (berhasil) {
         document.getElementById('hasilKey').value = keyValue;
         generatedKey = keyValue;
-        
         document.getElementById('manualKeyInput').value = '';
         
-        // Tampilkan modal sukses BESAR
         showSuccessModal(jenisKey, keyValue);
         
-        // Auto copy
         setTimeout(() => {
           copyKey(true);
         }, 500);
@@ -969,27 +937,30 @@ const app = initializeApp(firebaseConfig);
       
       if (!output.value) {
         if (!silent) {
-          statusMsg.className = 'status-msg warning';
-          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key';
+          statusMsg.className = 'status-msg error';
+          statusMsg.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Tidak ada key untuk disalin';
+          setTimeout(() => {
+            statusMsg.style.display = 'none';
+          }, 2000);
         }
         return;
       }
 
-      output.select();
-      output.setSelectionRange(0, 99999);
-      
-      try {
-        navigator.clipboard.writeText(output.value).then(() => {
-          if (!silent) {
-            statusMsg.className = 'status-msg success';
-            statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key disalin!';
-          }
-        }).catch(() => {
-          document.execCommand("copy");
-        });
-      } catch (err) {
-        document.execCommand("copy");
-      }
+      navigator.clipboard.writeText(output.value).then(() => {
+        if (!silent) {
+          statusMsg.className = 'status-msg success';
+          statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Key berhasil disalin!';
+          setTimeout(() => {
+            statusMsg.style.display = 'none';
+          }, 2000);
+        }
+        showNotification();
+      }).catch(() => {
+        if (!silent) {
+          statusMsg.className = 'status-msg error';
+          statusMsg.innerHTML = '<i class="fas fa-times-circle"></i> Gagal menyalin key';
+        }
+      });
     }
 
     // Load keys saat halaman dimuat
@@ -997,6 +968,7 @@ const app = initializeApp(firebaseConfig);
       loadKeysFromFirebase();
     });
 
+    // ESC key handler
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         if (document.getElementById('passwordModal').classList.contains('active')) {
@@ -1006,10 +978,6 @@ const app = initializeApp(firebaseConfig);
           closeSuccessModal();
         }
       }
-    });
-
-    document.querySelector('.modal-box').addEventListener('click', (e) => {
-      e.stopPropagation();
     });
   </script>
 </body>
