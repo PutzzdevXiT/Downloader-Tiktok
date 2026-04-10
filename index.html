@@ -717,17 +717,16 @@
     
     // 🔥 FIREBASE CONFIG - PAKAI YANG KAMU PUNYA!
     const firebaseConfig = {
-      apiKey: "AIzaSyB3WWClZiZ890Wf9zaYwcOGfKOl8OjPuU8",
-      authDomain: "keyweb-f8e96.firebaseapp.com",
-      databaseURL: "https://keyweb-f8e96-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "keyweb-f8e96",
-      storageBucket: "keyweb-f8e96.firebasestorage.app",
-      messagingSenderId: "255752835945",
-      appId: "1:255752835945:web:bd95a38875d563241263f8"
-    };
+  apiKey: "AIzaSyDKzgOyYkGg0Guo4JYfsR-lXsRhgH32GqQ",
+  authDomain: "putzz-key.firebaseapp.com",
+  projectId: "putzz-key",
+  storageBucket: "putzz-key.firebasestorage.app",
+  messagingSenderId: "956234038203",
+  appId: "1:956234038203:web:c6eddf2b3a724ff1ca629e"
+};
 
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
     const database = firebase.database();
 
     let generatedKey = '';
